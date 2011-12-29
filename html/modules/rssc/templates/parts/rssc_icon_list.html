@@ -1,0 +1,28 @@
+<{* $Id: rssc_icon_list.html,v 1.1 2011/12/29 14:37:05 ohwada Exp $ *}>
+
+<table cellspacing="1">
+<{foreach name="icon_list" item=list from=$icon_list}>
+<{* -- table line start -- *}>
+  <{if $smarty.foreach.icon_list.iteration mod $icon_cols == 1}>
+    <tr>
+  <{/if}>
+
+  <td>
+    <{if $list.lid && $list.icon}>
+      <a href="<{$xoops_url}>/modules/<{$dirname}>/single_link.php?lid=<{$list.lid}>">
+      <img src="<{$xoops_url}>/modules/<{$dirname}>/images/icons/<{$list.icon}>" alt="<{$list.title}>" />
+      <{$list.title}>
+      </a>
+    <{elseif $list.icon}>
+      <img src="<{$xoops_url}>/modules/<{$dirname}>/images/icons/<{$list.icon}>" alt="<{$list.title}>" />
+      <{$list.title}>
+    <{/if}>
+  </td>
+
+<{* -- table line end -- *}>
+  <{if ($smarty.foreach.icon_list.iteration is div by $icon_cols) || $smarty.foreach.icon_list.last}>
+    </tr>
+  <{/if}>
+
+<{/foreach}>
+</table>

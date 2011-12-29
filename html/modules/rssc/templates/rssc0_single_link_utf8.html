@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<{$xoops_langcode}>" lang="<{$xoops_langcode}>">
+<head>
+<{* $Id: rssc0_single_link_utf8.html,v 1.1 2011/12/29 14:37:05 ohwada Exp $ *}>
+<meta http-equiv="content-type" content="text/html; charset=<{$xoops_charset}>" />
+<meta http-equiv="content-language" content="<{$xoops_langcode}>" />
+<meta name="robots" content="<{$xoops_meta_robots}>" />
+<meta name="keywords" content="<{$xoops_meta_keywords}>" />
+<meta name="description" content="<{$xoops_meta_description}>" />
+<meta name="rating" content="<{$xoops_meta_rating}>" />
+<meta name="author" content="<{$xoops_meta_author}>" />
+<meta name="copyright" content="<{$xoops_meta_copyright}>" />
+<meta name="generator" content="XOOPS" />
+<title><{$xoops_sitename}> - <{$module_name}> -  <{$link.title_u}></title>
+<link rel="stylesheet" type="text/css" media="all" href="<{$xoops_url}>/xoops.css" />
+<link rel="stylesheet" type="text/css" media="all" href="<{$xoops_themecss}>" />
+<link rel="stylesheet" type="text/css" media="all" href="<{$xoops_url}>/modules/<{$dirname}>/rssc.css" />
+</head>
+<body>
+<div style="margin: 10px; padding: 10px;">
+
+<br />
+<a href="<{$xoops_url}>/"><{$xoops_sitename}></a>
+ &gt;&gt; 
+<a href="<{$xoops_url}>/modules/<{$dirname}>/"><{$module_name}></a>
+ &gt;&gt; 
+<a href="<{$xoops_url}>/modules/<{$dirname}>/single_link.php?lid=<{$lid}>&amp;keywords=<{$rssc_keywords}>"><{$link.title_u}></a>
+<br /><br />
+
+<h3 align="center"><{$module_name}></h3>
+<h3><{$lang_single_link_utf8}></h3>
+
+<ul>
+<li><a href="single_link.php?lid=<{$lid}>&amp;keywords=<{$rssc_keywords}>"><{$lang_single_link}></a></li>
+<li><a href="single_link_utf8.php?lid=<{$lid}>&amp;keywords=<{$rssc_keywords}>"><{$lang_single_link_utf8}></a></li>
+</ul>
+<br />
+
+<{if ($link_show == 1) }>
+  <a href="<{$xoops_url}>/modules/<{$dirname}>/single_link.php?lid=<{$link.lid}>&amp;keywords=<{$rssc_keywords}>">
+  <img src="<{$xoops_url}>/modules/<{$dirname}>/images/dir.gif" border="0" alt="link" /></a> 
+  <{if ($link.url_xml_s != "") && ($link.icon_s != "") }>
+    <a href="<{$link.url_xml_s}>" target="_blank">
+    <img src="<{$xoops_url}>/modules/<{$dirname}>/images/<{$link.icon_s}>" border="0" alt="<{$link.title_u}>" /></a>
+  <{/if}>
+  <{if ($link.url_s != '') }>
+    <a href="<{$link.url_s}>" target="_blank"><{$link.title_u}></a>
+  <{else}>
+    <{$link.title_u}>
+  <{/if}>
+  <{if ($link.updated_long != '') }>
+    (<{$link.updated_long}>)
+  <{/if}>
+  <br /><br />
+
+  <{if ($feed_show == 1) }>
+    <{foreach item=feed from=$feeds}>
+      <div>
+      <img src="<{$xoops_url}>/modules/<{$dirname}>/images/text.gif" border="0" alt="feed" />
+      <{if ($feed.link != '') }>
+        <a href="<{$feed.link}>" target="_blank"><{$feed.title}></a>
+      <{else}>
+        <{$feed.title}>
+      <{/if}>
+      <{if ($feed.updated_long != '') }>
+        (<{$feed.updated_long}>)
+      <{/if}>
+      <{if (($feed.enclosure_mode == 1)&&($feed.enclosure_url != '')) }>
+        <br />
+        <a href="<{$feed.enclosure_url}>" target="_blank">
+        <img src="<{$xoops_url}>/modules/<{$dirname}>/images/sound2.gif" border="0" alt="sound" /> 
+        <{$lang_podcast}></a> : 
+        <{if ($feed.enclosure_type != '') }>
+          <{$feed.enclosure_type}> 
+        <{/if}>
+        <{if ($feed.enclosure_length_kb != '') }>
+          <{$feed.enclosure_length_kb}> <{$unit_kb}>
+        <{/if}>
+        <br />
+      <{/if}>
+      <{if ($feed.summary != '') }>
+        <div class="rssc_summary"><{$feed.summary|wordwrap:160}></div>
+      <{/if}>
+      <{if ($feed.content != '') }>
+        <div class="rssc_content"><{$feed.content|wordwrap:160}></div>
+      <{/if}>
+      <br />
+      </div>
+    <{/foreach}>
+
+  <{else}>
+    <font color="blue"><{$lang_no_feed}></font><br />
+  <{/if}>
+
+<{else}>
+  <font color="red"><{$lang_no_record}></font><br />
+<{/if}>
+
+<{if $is_module_admin && ($rssc_error != '') }>
+  <{$lang_error}>: admin<br />
+  <font color="red"><{$rssc_error}></font><br />
+<{/if}>
+
+</div>
+</body>
+</html>

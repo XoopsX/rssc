@@ -1,0 +1,49 @@
+/* $Id: rssc.css,v 1.1 2011/12/29 14:37:04 ohwada Exp $ */
+
+div.rssc_powered
+{
+	font-size: 80%; 
+	text-align: right;
+}
+
+div.rssc_execution_time
+{
+	font-size: 80%; 
+}
+
+div.rssc_memory_usage
+{
+	font-size: 80%; 
+}
+
+div.rssc_summary
+{
+	border: #0000ff 1px dotted;	/* blue */
+	padding: 3px 3px 3px 3px;
+	margin: 2px 2px 5px 2px;
+	text-align: left;
+}
+
+div.rssc_content
+{
+	border: #0000ff 1px dotted;	/* blue */
+	padding: 3px 3px 3px 3px;
+	margin: 2px 2px 5px 2px;
+	text-align: left;
+}
+
+span.rssc_highlight
+{
+	font-weight: bolder;
+	background-color: #ffff80;	/* light yellow */
+	color: #000000;	/* black */
+}
+
+div.rssc_map
+{
+	border:  1px solid #808080;	/* gray */
+	width:   98%;
+	height:  450px;
+	margin:  5px;
+	padding: 5px;
+}
