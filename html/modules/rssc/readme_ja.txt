@@ -1,11 +1,34 @@
-$Id: readme_ja.txt,v 1.1 2011/12/29 14:37:04 ohwada Exp $
+$Id: readme_ja.txt,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+
+RSSセンター 検索
+自分のサイトでなく、元のサイトが表示される。
+
+=================================================
+Version: 1.10
+Date:   2011-12-29
+Author: Kenichi OHWADA
+URL:    http://linux.ohwada.jp/
+Email:  webmaster@ohwada.jp
+=================================================
+
+● 変更内容
+1. PHP 5.3 対応
+PHP 5.3.x で推奨されない機能 を修正した
+http://www.php.net/manual/ja/migration53.deprecated.php
+(1) new の返り値を参照で代入すること
+
+2. MySQL 5.5 対応
+(1) TYPE=MyISAM -> ENGINE=MyISAM
+(2) BLOB/TEXT can't have a default value
+
+3. バグ対策
+(1) 「Powered by Happy Linux」のリンクが間違っている
+http://linux.ohwada.jp/modules/newbb/viewtopic.php?forum=9&topic_id=988
+
 
 =================================================
 Version: 1.02
 Date:   2009-05-17
-Author: Kenichi OHWADA
-URL:    http://linux.ohwada.jp/
-Email:  webmaster@ohwada.jp
 =================================================
 
 ● 変更内容

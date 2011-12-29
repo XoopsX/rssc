@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_feed_handler.php,v 1.1 2011/12/29 14:37:17 ohwada Exp $
+// $Id: rssc_feed_handler.php,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+
+// 2011-12-29 K.OHWADA
+// PHP 5.3 : Assigning the return value of new by reference is now deprecated.
 
 // 2009-02-20 K.OHWADA
 // geo_lat
@@ -381,7 +384,7 @@ function get_count_by_link($link)
 	$ret = 0;
 	if ($link)
 	{
-		$criteria =& new CriteriaCompo();
+		$criteria = new CriteriaCompo();
 		$criteria->add( $this->get_addtion_by_link($link) );
 		$ret = $this->getCount($criteria);
 	}
@@ -393,7 +396,7 @@ function get_count_by_link_non_act($link)
 	$ret = 0;
 	if ($link)
 	{
-		$criteria =& new CriteriaCompo();
+		$criteria = new CriteriaCompo();
 		$criteria->add( new criteria('act', 0, '=') );
 		$criteria->add( $this->get_addtion_by_link($link) );
 		$ret = $this->getCount($criteria);
@@ -403,7 +406,7 @@ function get_count_by_link_non_act($link)
 
 function &get_addtion_by_lid($lid)
 {
-	$addtion =& new Criteria('lid', $lid, '=');
+	$addtion = new Criteria('lid', $lid, '=');
 	return $addtion;
 }
 
@@ -411,7 +414,7 @@ function &get_addtion_by_link($link)
 {
 // match http://xxx/*http://yyy/
 	$link = '%'.$link.'%';
-	$addtion =& new Criteria('link', $link, 'LIKE');
+	$addtion = new Criteria('link', $link, 'LIKE');
 	return $addtion;
 }
 

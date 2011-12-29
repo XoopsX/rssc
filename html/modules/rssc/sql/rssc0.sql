@@ -1,4 +1,13 @@
-# $Id: rssc0.sql,v 1.1 2011/12/29 14:37:05 ohwada Exp $
+# $Id: rssc0.sql,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+
+# 2011-12-29 K.OHWADA
+# TYPE=MyISAM -> ENGINE=MyISAM
+
+# 2010-04-18 K.OHWADA
+# BLOB/TEXT column 'link' can't have a default value
+
+# 2009-09-27 K.OHWADA
+# KEY act_time udi_time in feed table
 
 # 2009-03-14 K.OHWADA
 # change INSERT
@@ -55,7 +64,7 @@ CREATE TABLE rssc0_config (
   aux_text_2 varchar(255) default '',
   PRIMARY KEY (id),
   KEY conf_id (conf_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -95,7 +104,7 @@ CREATE TABLE rssc0_link (
   PRIMARY KEY  (lid),
   KEY mid (mid),
   KEY p (p1, p2, p3)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -112,7 +121,7 @@ CREATE TABLE rssc0_xml (
   aux_text_2 varchar(255) default '',
   PRIMARY KEY  (xid),
   KEY lid (lid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -130,7 +139,7 @@ CREATE TABLE rssc0_feed (
   site_title varchar(255) default '',
   site_link  varchar(255) default '',
   title  varchar(255) NOT NULL default '',
-  link   text default '',
+  link   text NOT NULL,
   entry_id  varchar(255) default '',
   guid      varchar(255) default '',
   updated_unix   int(10) default '0',
@@ -166,10 +175,12 @@ CREATE TABLE rssc0_feed (
   KEY lid (lid),
   KEY mid (mid),
   KEY p   (p1, p2, p3),
+  KEY act_time (act, updated_unix, published_unix),
+  KEY uid_time (uid, updated_unix, published_unix),
   KEY link (link(10)),
   KEY updated   (updated_unix),
   KEY published (published_unix)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -197,7 +208,7 @@ CREATE TABLE rssc0_black (
   cache int(11) unsigned default '0',
   ctime int(11) unsigned default '0',
   PRIMARY KEY  (bid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -225,7 +236,7 @@ CREATE TABLE rssc0_white (
   cache int(11) unsigned default '0',
   ctime int(11) unsigned default '0',
   PRIMARY KEY  (wid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -244,7 +255,7 @@ CREATE TABLE rssc0_word (
   aux_text_2 varchar(255) default '',
   PRIMARY KEY  (sid),
   KEY point (point, count)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 INSERT INTO rssc0_link VALUES (1, 1, 0, 0, 0, 0, 'XOOPS.org', 'http://www.xoops.org/', 2, 3600, 1, 2, '', 'http://www.xoops.org/backend.php', '', 'utf-8', 0, '', '', 0, 0, '', '', 1, '', '', '', '', 0 );

@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_install.php,v 1.1 2011/12/29 14:37:14 ohwada Exp $
+// $Id: rssc_install.php,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+
+// 2011-12-29 K.OHWADA
+// TYPE=MyISAM -> ENGINE=MyISAM
 
 // 2009-02-20 K.OHWADA
 // _update_feed_100()
@@ -314,7 +317,7 @@ CREATE TABLE ".$this->_xml_table." (
   aux_text_2 varchar(255) default '',
   PRIMARY KEY  (xid),
   KEY lid (lid)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ";
 
 	return $this->query($sql);
@@ -361,7 +364,7 @@ CREATE TABLE ".$this->_word_table." (
   aux_text_1 varchar(255) default '',
   aux_text_2 varchar(255) default '',
   PRIMARY KEY  (sid)
-) TYPE=MyISAM
+) ENGINE=MyISAM
 ";
 
 	return $this->query($sql);
