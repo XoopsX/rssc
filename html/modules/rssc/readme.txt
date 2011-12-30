@@ -1,4 +1,4 @@
-$Id: readme.txt,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+$Id: readme.txt,v 1.3 2011/12/30 13:18:55 ohwada Exp $
 
 =================================================
 Version: 1.10
@@ -14,8 +14,12 @@ Deprecated features in PHP 5.3.x
 http://www.php.net/manual/en/migration53.deprecated.php
 (1) Assigning the return value of new by reference is now deprecated.
 
-1. Migrating to MySQL 5.5
+2. Migrating to MySQL 5.5
 (1) TYPE=MyISAM -> ENGINE=MyISAM
+
+3. bugfix
+(1) wrong link of "Powered by Happy Linux"
+http://linux.ohwada.jp/modules/newbb/viewtopic.php?forum=9&topic_id=988
 
 
 =================================================
