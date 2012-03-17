@@ -1,5 +1,5 @@
 <?php
-// $Id: link_list.php,v 1.1 2011/12/29 14:37:11 ohwada Exp $
+// $Id: link_list.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
 
 // 2007-11-01 K.OHWADA
 // set_flag_execute_time()
@@ -79,21 +79,29 @@ function &_get_table_header()
 
 function &_get_cols( &$obj )
 {
-	$jump = 'link_manage.php?op=mod_form&amp;lid=';
+	$lid = $obj->getVar('lid');
+
+	$edit_jump = 'link_manage.php?op=mod_form&amp;lid=';
+	$link_link = $this->_build_page_id_link_by_obj( $obj, 'lid', $edit_jump);
+
 	list($href1, $href2) = $this->_get_linkfeed($obj);
 
-	$lid = $obj->getVar('lid');
-	$url_view_lid = RSSC_URL."/single_link.php?lid=".$lid;
-	$url_text_gif = RSSC_URL."/images/text.gif";
-	$img_link  = $this->build_html_img_tag($url_text_gif, 0, 0, 0, 'link');
-	$view_link = $this->build_html_a_href_name($url_view_lid, $img_link, '', false);
-	$link_link = $this->_build_page_id_link_by_obj( $obj, 'lid', $jump);
+	$view_image    = RSSC_URL."/images/text.gif";
+	$edit_image    = RSSC_URL."/images/edit.gif";
+	$view_img_link = $this->build_html_img_tag($view_image, 0, 0, 0, 'link');
+	$edit_img_link = $this->build_html_img_tag($edit_image, 0, 0, 0, 'edit');
+	$view_url_lid  = RSSC_URL .'/single_link.php?lid='. $lid;
+	$edit_url_lid  = RSSC_URL .'/admin/'. $edit_jump . $lid;
+	$view_link     = $this->build_html_a_href_name($view_url_lid, $view_img_link, '', false);
+	$edit_link     = $this->build_html_a_href_name($edit_url_lid, $edit_img_link, '', false);
+
+	$edit = $edit_link.'&nbsp;'.$view_link.'&nbsp;'.$link_link;
 
 	$mode_name = $obj->get_mode_name();
 	$xml_url_s = $obj->get_rssurl_by_mode('s');
 
 	$arr = array(
-		$view_link.'&nbsp;&nbsp;'.$link_link,
+		$edit,
 		$href1,
 		$href2,
 		$this->_build_page_name_link_by_obj($obj, 'url',      'title', '_blank'),

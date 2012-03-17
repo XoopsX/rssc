@@ -1,14 +1,26 @@
-$Id: readme_ja.txt,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+$Id: readme_ja.txt,v 1.3 2012/03/17 13:31:45 ohwada Exp $
 
-RSSセンター 検索
-自分のサイトでなく、元のサイトが表示される。
+=================================================
+Version: 1.20
+Date:   2012-03-01
+Author: Kenichi OHWADA
+URL:    http://linux.ohwada.jp/
+Email:  webmaster@ohwada.jp
+=================================================
+
+● 変更内容
+1. Google Maps API V3 対応
+(1) webmap モジュールに代わって WEBMAP3 モジュールが必要です。
+(2) マップ管理にて、地図の中心を設定する。
+
+2. リンク管理
+(1) Googleアイコンを選択したときに、アイコン画像を表示する。
+(2) アイコンを選択したときに、アイコン画像を表示する。
+
 
 =================================================
 Version: 1.10
 Date:   2011-12-29
-Author: Kenichi OHWADA
-URL:    http://linux.ohwada.jp/
-Email:  webmaster@ohwada.jp
 =================================================
 
 ● 変更内容

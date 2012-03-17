@@ -1,5 +1,5 @@
 <?php
-// $Id: admin.php,v 1.1 2011/12/29 14:37:10 ohwada Exp $
+// $Id: admin.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
 
 // 2008-01-20 K.OHWADA
 // post_plugin in link table
@@ -463,6 +463,16 @@ define('_AM_RSSC_CONF_SHOW_THUMB_DSC', 'when "YES", show thmbnail image');
 // link form
 define('_AM_RSSC_LINK_ICON_SEL',  'Select Icon');
 define('_AM_RSSC_LINK_GICON_SEL', 'Select GoogleMap Icon');
+
+// === 2012-03-01 ===
+define('_AM_RSSC_MAP_MANAGE',  'GoogleMap Manage');
+
+// config
+define('_AM_RSSC_CONF_WEBMAP_ADDRESS', 'Address');
+define('_AM_RSSC_CONF_WEBMAP_ADDRESS_DESC', 'Memo which shows the place of latitude and longitude');
+define('_AM_RSSC_CONF_WEBMAP_LATITUDE',  'Latitude');
+define('_AM_RSSC_CONF_WEBMAP_LONGITUDE', 'Longitude');
+define('_AM_RSSC_CONF_WEBMAP_ZOOM',      'Zoom');
 
 }
 // --- define language begin ---

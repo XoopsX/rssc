@@ -1,5 +1,8 @@
 <?php
-// $Id: admin_config_class.php,v 1.1 2011/12/29 14:37:10 ohwada Exp $
+// $Id: admin_config_class.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// build_conf_extra_webmpa3_dirname_list
 
 // 2009-02-20 K.OHWADA
 // main_map_xxx
@@ -48,6 +51,7 @@
 
 class admin_config_form extends happy_linux_config_form
 {
+	var $_DIRNAME;
 
 // local
 	var $_line_count = 0;
@@ -62,6 +66,8 @@ function admin_config_form()
 	$define =& rssc_config_define::getInstance();
 	$this->set_config_handler('config', RSSC_DIRNAME, 'rssc');
 	$this->set_config_define( $define );
+
+	$this->_DIRNAME = RSSC_DIRNAME;
 
 // init
 	$this->load();
@@ -160,6 +166,93 @@ function show_form_template_compiled_clear( $title )
 	$desc = sprintf( _HAPPY_LINUX_CONF_TPL_COMPILED_CLEAR_DIR, 'template/xml/, template/parts/' );
 	echo $this->build_lib_box_button_style( $title, $desc, 'template_compiled_clear', _HAPPY_LINUX_CLEAR );
 	echo "<br />\n";
+}
+
+//---------------------------------------------------------
+// build config
+//---------------------------------------------------------
+function build_conf_extra_func( $config )
+{
+	$formtype  = $config['formtype'];
+	$valuetype = $config['valuetype'];
+	$name      = $config['name'];
+	$value     = $config['value'];
+	$options   = $config['options'];
+	$value_s   = $this->sanitize_text( $value );
+
+	switch ( $formtype ) 
+	{
+		case 'extra_webmpa3_dirname_list':
+			$ele = $this->build_conf_extra_webmpa3_dirname_list( $config );
+			break;
+
+		default:
+			$ele = $this->build_html_input_text( $name, $value_s );
+			break;
+	}
+
+	return $ele;
+}
+
+function build_conf_extra_webmpa3_dirname_list( $config )
+{
+	$name  =  $config['name'];
+	$value =  $config['value'];
+
+	$param = array(
+		'dirname_except'  => $this->_DIRNAME,
+		'file'            => 'include/webmap3_version.php',
+		'none_flag'       => true,
+		'dirname_default' => $value,
+	);
+
+	$modules = $this->_system->get_module_list( $param );
+	$options = $this->_system->get_dirname_list( $modules, $param );
+
+	return $this->build_html_select( $name, $value, $options );
+}
+
+//---------------------------------------------------------
+// webmap3 version
+//---------------------------------------------------------
+function print_check_webmap3_version()
+{
+	if ( $this->check_webmap3_installed() ) {
+		if ( ! $this->check_webmap3_version() ) {
+			$this->print_warning_webmap3_version();
+		}
+	}
+}
+
+function check_webmap3_installed()
+{
+	$webmap3_dirname = $this->get_value_by_name( 'webmap_dirname' );
+
+	$file = XOOPS_ROOT_PATH . '/modules/'.$webmap3_dirname.'/include/webmap3_version.php';
+	if ( ! file_exists($file) ) {
+		return false;
+	}
+
+	include_once $file;
+	if ( ! defined('_C_WEBMAP3_VERSION') ) {
+		return false;
+	}
+
+	return true;
+}
+
+function check_webmap3_version()
+{
+	if ( _C_WEBMAP3_VERSION < RSSC_WEBMAP3_VERSION ) {
+		return false;
+	}
+	return true;
+}
+
+function print_warning_webmap3_version()
+{
+	$msg = 'require webmap3 module v'.RSSC_WEBMAP3_VERSION.' or later';
+	xoops_error( $msg );
 }
 
 // --- class end ---

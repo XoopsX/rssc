@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_block.php,v 1.1 2011/12/29 14:37:15 ohwada Exp $
+// $Id: rssc_block.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// rssc_map::getInstance( $rssc_dirname )
 
 // 2009-05-17 K.OHWADA
 // not show blog site title
@@ -147,8 +150,13 @@ function show_map( $DIRNAME )
 
 	$feeds = $this->build_feeds( $rows, $build_param );
 
+	$map_div_id = $DIRNAME.'_map_block_0' ;
+	$map_func   = $DIRNAME.'_load_map_block_0';
+
 	$webmap_param = array(
 		'dirname'        => $DIRNAME ,
+		'map_div_id'     => $map_div_id ,
+		'map_func'       => $map_func ,
 		'webmap_dirname' => $conf_data['webmap_dirname'] ,
 		'info_max'       => $conf_data['block_map_info_max'] ,
 		'info_width'     => $conf_data['block_map_info_width'] ,
@@ -161,9 +169,10 @@ function show_map( $DIRNAME )
 		return $block ;
 	}
 
-	$block['feeds']       = $feeds;
-	$block['map']         = $map_param['map'] ;
-	$block['element_map'] = $map_param['element_map'] ;
+	$block['show_map']   = true;
+	$block['feeds']      = $feeds;
+	$block['map_div_id'] = $map_div_id ;
+	$block['block_js']   = $map_param['block_js'] ;
 
 	return $block ;
 }
@@ -492,18 +501,22 @@ function get_map( $param )
 {
 	$rssc_dirname   = $param['dirname'] ;
 	$webmap_dirname = $param['webmap_dirname'] ;
+	$map_div_id     = $param['map_div_id'] ;
+	$map_func       = $param['map_func'] ;
 	$info_max       = $param['info_max'] ;
 	$info_width     = $param['info_width'] ;
 	$feeds          = $param['feeds'] ;
 
 	include_once XOOPS_ROOT_PATH.'/modules/'. $rssc_dirname  .'/class/rssc_map.php';
-	$map_class =& rssc_map::getInstance();
+	$map_class =& rssc_map::getInstance( $rssc_dirname );
 
 	$ret = $map_class->init( $webmap_dirname );
 	if ( !$ret ) {
 		return false ;
 	}
 
+	$map_class->set_map_div_id( $map_div_id ) ;
+	$map_class->set_map_func(   $map_func ) ;
 	$map_class->set_info_max(   $info_max ) ;
 	$map_class->set_info_width( $info_width ) ;
 

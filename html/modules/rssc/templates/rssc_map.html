@@ -1,4 +1,8 @@
-<{* $Id: rssc_map.html,v 1.2 2011/12/29 18:47:54 ohwada Exp $ *}>
+<{* $Id: rssc_map.html,v 1.3 2012/03/17 13:31:45 ohwada Exp $ *}>
+
+<{if $show_map}>
+  <{$map_js}>
+<{/if}>
 
 &nbsp;
 <a href="<{$xoops_url}>/"><{$lang_home}></a>
@@ -23,8 +27,7 @@
 <br />
 
 <{if $show_map}>
-  <{$map}>
-  <div id="<{$element_map}>" class="rssc_map">Loading ...</div>
+  <div id="<{$map_div_id}>" class="rssc_map">Loading ...</div>
   <br />
 <{/if}>
 

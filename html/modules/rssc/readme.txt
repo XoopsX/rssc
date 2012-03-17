@@ -1,11 +1,26 @@
-$Id: readme.txt,v 1.3 2011/12/30 13:18:55 ohwada Exp $
+$Id: readme.txt,v 1.4 2012/03/17 13:31:45 ohwada Exp $
+
+=================================================
+Version: 1.20
+Date:   2012-03-01
+Author: Kenichi OHWADA
+URL:    http://linux2.ohwada.net/
+Email:  webmaster@ohwada.net
+=================================================
+
+* Changes *
+1. Support Ggoogle Maps API V3
+(1) require WEBMAP3 module instead of webmap module. 
+(2) set center of map in map manage.
+
+2. Link manage
+(1) show icon image when select google map icon.
+(2) show icon image when select icon.
+
 
 =================================================
 Version: 1.10
 Date:   2011-12-29
-Author: Kenichi OHWADA
-URL:    http://linux2.ohwada.net/
-Email:  webmaster@ohwada.net
 =================================================
 
 * Changes *

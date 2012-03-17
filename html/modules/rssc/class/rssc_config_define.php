@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_config_define.php,v 1.1 2011/12/29 14:37:16 ohwada Exp $
+// $Id: rssc_config_define.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// webmap_latitude
 
 // 2009-02-20 K.OHWADA
 // webmap_dirname
@@ -1112,9 +1115,41 @@ function &get_define()
 	$config[181]['catid']       = 18;
 	$config[181]['title']       = '_AM_RSSC_CONF_WEBMAP_DIRNAME';
 //	$config[181]['description'] = '_AM_RSSC_CONF_WEBMAP_DIRNAME_DESC';
-	$config[181]['formtype']    = 'text';
+	$config[181]['formtype']    = 'extra_webmpa3_dirname_list';
 	$config[181]['valuetype']   = 'txet';
-	$config[181]['default']     = 'webmap';
+	$config[181]['default']     = 'webmap3';
+
+	$config[182]['name']        = 'webmap_address';
+	$config[182]['catid']       = 18;
+	$config[182]['title']       = '_AM_RSSC_CONF_WEBMAP_ADDRESS';
+	$config[182]['description'] = '_AM_RSSC_CONF_WEBMAP_ADDRESS_DESC';
+	$config[182]['formtype']    = 'text';
+	$config[182]['valuetype']   = 'txet';
+	$config[182]['default']     = 'Yokohama, Japan';
+
+	$config[183]['name']        = 'webmap_latitude';
+	$config[183]['catid']       = 18;
+	$config[183]['title']       = '_AM_RSSC_CONF_WEBMAP_LATITUDE';
+//	$config[183]['description'] = '_AM_RSSC_CONF_WEBMAP_LATITUDE_DESC';
+	$config[183]['formtype']    = 'text';
+	$config[183]['valuetype']   = 'float';
+	$config[183]['default']     = '35.443924694026';
+
+	$config[184]['name']        = 'webmap_longitude';
+	$config[184]['catid']       = 18;
+	$config[184]['title']       = '_AM_RSSC_CONF_WEBMAP_LONGITUDE';
+//	$config[184]['description'] = '_AM_RSSC_CONF_WEBMAP_LONGITUDE_DESC';
+	$config[184]['formtype']    = 'text';
+	$config[184]['valuetype']   = 'float';
+	$config[184]['default']     = '139.63738918304';
+
+	$config[185]['name']        = 'webmap_zoom';
+	$config[185]['catid']       = 18;
+	$config[185]['title']       = '_AM_RSSC_CONF_WEBMAP_ZOOM';
+//	$config[185]['description'] = '_AM_RSSC_CONF_WEBMAP_ZOOM_DESC';
+	$config[185]['formtype']    = 'text';
+	$config[185]['valuetype']   = 'int';
+	$config[185]['default']     = '10';
 
 //---------------------------------------------------------
 // main map config

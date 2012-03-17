@@ -1,5 +1,8 @@
 <?php
-// $Id: headline.php,v 1.1 2011/12/29 14:37:04 ohwada Exp $
+// $Id: headline.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// rssc_map::getInstance( RSSC_DIRNAME )
 
 // 2009-02-20 K.OHWADA
 // rssc_map.php
@@ -51,7 +54,7 @@ $view_handler     =& rssc_get_handler( 'view',         RSSC_DIRNAME );
 $conf_handler     =& rssc_get_handler( 'config_basic', RSSC_DIRNAME );
 $post             =& happy_linux_post::getInstance();
 $pagenavi         =& happy_linux_pagenavi::getInstance();
-$map_class        =& rssc_map::getInstance();
+$map_class        =& rssc_map::getInstance( RSSC_DIRNAME );
 
 // --- template start ---
 // xoopsOption[template_main] should be defined before including header.php

@@ -1,5 +1,8 @@
 <?php
-// $Id: admin_function.php,v 1.1 2011/12/29 14:37:10 ohwada Exp $
+// $Id: admin_function.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// map_manage.php
 
 // 2008-01-20 K.OHWADA
 // config_manage_3.php
@@ -128,7 +131,7 @@ function rssc_admin_print_menu()
 		_HAPPY_LINUX_CONF_TABLE_MANAGE => 'table_manage.php',
 		_HAPPY_LINUX_AM_MODULE         => 'modules.php',
 		_HAPPY_LINUX_AM_BLOCK          => 'blocks.php',
-		'....'  => '',
+		_AM_RSSC_MAP_MANAGE            => 'map_manage.php',
 		_HAPPY_LINUX_GOTO_MODULE => '../index.php',
 
 	);

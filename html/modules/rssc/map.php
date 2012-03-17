@@ -1,5 +1,8 @@
 <?php
-// $Id: map.php,v 1.1 2011/12/29 14:37:03 ohwada Exp $
+// $Id: map.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// rssc_map::getInstance( RSSC_DIRNAME )
 
 // 2009-05-17 K.OHWADA
 // Notice [PHP]: Undefined variable: feed_list
@@ -15,10 +18,15 @@ include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 $view_handler  =& rssc_get_handler( 'view',         RSSC_DIRNAME );
 $conf_handler  =& rssc_get_handler( 'config_basic', RSSC_DIRNAME );
-$map_class     =& rssc_map::getInstance();
+$map_class     =& rssc_map::getInstance( RSSC_DIRNAME );
 $icon_class    =& rssc_icon::getInstance();
 $post          =& happy_linux_post::getInstance();
 $pagenavi      =& happy_linux_pagenavi::getInstance();
+
+$MAP_IMAGE_WIDTH  = 120;
+$MAP_IMAGE_HEIGHT = 120;
+$map_div_id = RSSC_DIRNAME.'_map_0';
+$map_func   = RSSC_DIRNAME.'_load_map_0';
 
 // --- template start ---
 // xoopsOption[template_main] should be defined before including header.php
@@ -42,16 +50,13 @@ $reason      = '';
 $navi        = '';
 $feed_total  = 0;
 $show_map    = 0;
-$map         = null;
-$element_map = null;
+$map_js      = null;
+$ele_id_map  = null;
 $feed_list   = null ;
 $icon_list   = null ;
 
 $ret = $map_class->init( $webmap_dirname );
 if ( $ret ) {
-
-	$map_class->set_info_max(   $conf['main_map_info_max'] ) ;
-	$map_class->set_info_width( $conf['main_map_info_width'] ) ;
 
 	$view_handler->setFeedOrder(  $conf['main_map_order'] );
 	$view_handler->setFutureDays( $conf['basic_future_days'] );
@@ -80,9 +85,13 @@ if ( $ret ) {
 		$feed_show = 1;
 		$show_map  = 1;
 
-		$param = $map_class->fetch_map( $feeds );
-		$map         = $param['map'] ;
-		$element_map = $param['element_map'] ;
+		$map_class->set_map_div_id( $map_div_id ) ;
+		$map_class->set_map_func(   $map_func ) ;
+		$map_class->set_info_max(   $MAP_IMAGE_WIDTH ) ;
+		$map_class->set_info_width( $MAP_IMAGE_HEIGHT ) ;
+
+		$param  = $map_class->fetch_map( $feeds );
+		$map_js = $param['map_js'] ;
 
 		$param = array(
 			'feeds'      => $feeds ,
@@ -105,9 +114,9 @@ if ( $ret ) {
 	$reason = 'NOT exist webmap module';
 }
 
-$xoopsTpl->assign('show_map',    $show_map );
-$xoopsTpl->assign('map',         $map );
-$xoopsTpl->assign('element_map', $element_map );
+$xoopsTpl->assign('show_map',   $show_map );
+$xoopsTpl->assign('map_js',     $map_js );
+$xoopsTpl->assign('map_div_id', $map_div_id );
 
 // Notice [PHP]: Undefined variable: feed_list
 $xoopsTpl->assign('feed_list',   $feed_list );

@@ -1,5 +1,8 @@
 <?php
-// $Id: link_manage.php,v 1.1 2011/12/29 14:37:11 ohwada Exp $
+// $Id: link_manage.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// webmap3_api_gicon
 
 // 2009-02-20 K.OHWADA
 // _build_ele_gicon()
@@ -555,6 +558,7 @@ class admin_form_link extends happy_linux_form_lib
 	var $_feed_handler;
 	var $_post;
 	var $_system;
+	var $_html_class;
 
 	var $_conf;
 
@@ -566,8 +570,11 @@ class admin_form_link extends happy_linux_form_lib
 
 // icon
 	var $_DIR_ICON_REL = "images/icons";
+	var $_IMG_ID_ICON  = 'rssc_img_icon';
+	var $_ICON_NONE    = '---';
 	var $_DIR_ICON;
 	var $_URL_ICON;
+	var $_URL_ICON_WHITE_DOT;
 
 //---------------------------------------------------------
 // constructor
@@ -588,6 +595,7 @@ function admin_form_link()
 // icon
 	$this->_DIR_ICON = RSSC_ROOT_PATH . '/' . $this->_DIR_ICON_REL;
 	$this->_URL_ICON = RSSC_URL       . '/' . $this->_DIR_ICON_REL;
+	$this->_URL_ICON_WHITE_DOT = RSSC_URL . '/images/white_dot.png';
 }
 
 function &getInstance()
@@ -607,6 +615,16 @@ function &getInstance()
 function _show(&$obj, $extra=null, $show_mode=0)
 {
 	echo _AM_RSSC_LINK_DESC."<br /><br />\n";
+
+	echo $this->_build_icon_js();
+
+	$webmap3_flag    = false;
+	$webmap3_dirname = $this->_conf['webmap_dirname'] ;
+	if ( $this->_check_webmap( $webmap3_dirname ) ) {
+		$webmap3_flag = true;
+		echo $this->_build_gicon_js();
+		echo $this->_build_gicons_js();
+	}
 
 	switch ($show_mode) 
 	{
@@ -702,10 +720,9 @@ function _show(&$obj, $extra=null, $show_mode=0)
 	echo $this->build_form_table_line(
 		_AM_RSSC_LINK_ICON_SEL, $this->_build_ele_icon() );
 
-	$webmap_dirname =  $this->_conf['webmap_dirname'] ;
-	if ( $this->_check_webmap( $webmap_dirname ) ) {
+	if ( $webmap3_flag ) {
 		echo $this->build_form_table_line(
-			_AM_RSSC_LINK_GICON_SEL, $this->_build_ele_gicon( $webmap_dirname ) );
+			_AM_RSSC_LINK_GICON_SEL, $this->_build_ele_gicon() );
 	}
 
 	echo $this->build_obj_table_text(_RSSC_SITE_TITLE, 'title');
@@ -815,22 +832,98 @@ function _show(&$obj, $extra=null, $show_mode=0)
 
 function _check_webmap( $webmap_dirname )
 {
-	$file = XOOPS_ROOT_PATH.'/modules/'. $webmap_dirname .'/include/api_gicon.php' ;
-	if ( is_file($file) ) {
-		include_once $file ;
-		return true;
+	$file1 = XOOPS_ROOT_PATH.'/modules/'. $webmap_dirname .'/include/api_gicon.php' ;
+	$file2 = XOOPS_ROOT_PATH.'/modules/'. $webmap_dirname .'/include/api_html.php' ;
+
+	if ( !is_file($file1) ) {
+		return false;
 	}
-	return false;
+	if ( !is_file($file2) ) {
+		return false;
+	}
+
+	include_once $file1 ;
+	include_once $file2 ;
+
+	if ( ! class_exists('webmap3_api_gicon') ) {
+		return false;
+	}
+	if ( ! class_exists('webmap3_api_html') ) {
+		return false;
+	}
+
+	$this->_gicon_class =& webmap3_api_gicon::getSingleton( $webmap_dirname );
+	$this->_html_class  =& webmap3_api_html::getSingleton(  $webmap_dirname );
+
+	return true;
 }
 
-function _build_ele_gicon( $webmap_dirname )
+function _build_gicon_js()
 {
-	$gicon_class =& webmap_compo_gicon::getSingleton( $webmap_dirname );
-	$options = $gicon_class->get_sel_options( true, true );
+	list($show, $js) = $this->_gicon_class->assign_gicon_js_to_head( false );
+	return $js;
+}
 
-	$name    = 'gicon_id' ;
-	$value   = $this->_obj->getVar($name, 's');
-	return $this->build_html_select($name, $value, $options);
+function _build_gicons_js()
+{
+	return $this->_gicon_class->get_gicons_js();
+}
+
+function _build_ele_gicon()
+{
+	$id      = $this->_obj->getVar('gicon_id');
+	$options = $this->_gicon_class->get_sel_options( true );
+	$img_src = $this->_gicon_class->get_image_url( $id ) ;
+
+	$this->_html_class->set_gicon_id( $id );
+	$this->_html_class->set_gicon_options( $options );
+	$this->_html_class->set_gicon_img_src( $img_src );
+	$this->_html_class->set_gicon_select_name(    'gicon_id' );
+	$this->_html_class->set_gicon_select_id( 'rssc_gicon_id' );
+	$this->_html_class->set_gicon_img_id(    'rssc_gicon_img' );
+
+	$text  = $this->_html_class->build_gicon_select();
+	$text .= "<br />\n";
+	$text .= $this->_html_class->build_gicon_img();
+
+	return $text;
+}
+
+function _build_icon_js()
+{
+	$url_icon = $this->_URL_ICON;
+	$url_none = $this->_URL_ICON_WHITE_DOT;
+	$img_id   = $this->_IMG_ID_ICON ;
+	$none     = $this->_ICON_NONE ;
+
+$text = <<< EOF
+<script type="text/javascript">
+//<![CDATA[
+function rssc_icon_onchange( obj ) 
+{
+	var image = "$url_none";
+
+	if ( obj != null ) {
+		var index = obj.selectedIndex;
+		if ( obj.options[index] != null ) {
+			var id = obj.options[index].value;
+
+			if ( id != "$none" ) {
+				image = "$url_icon" + "/" + id;
+			}
+		}
+	}
+
+	var element = document.getElementById( "$img_id" );
+	if ( element != null  ) {
+		element.src = image;
+	}
+}
+//]]>
+</script>
+EOF;
+
+	return $text;
 }
 
 function _build_ele_icon()
@@ -838,18 +931,52 @@ function _build_ele_icon()
 	$name    = 'icon' ;
 	$value   = $this->_obj->getVar($name, 's');
 	$options = $this->_system->get_img_list_as_array( $this->_DIR_ICON );
+	$extra   = 'onChange="rssc_icon_onchange(this)"';
 
 	$file_icon = $this->_DIR_ICON .'/'. $value;
 	$url_icon  = $this->_URL_ICON .'/'. $value;
 
-	$str = $this->build_html_select($name, $value, $options, 1);
+	$img_src = '';
 
 	if ( $value && file_exists($file_icon) ) {
-		$str .= "<br />\n";
-		$str .= $this->build_html_img_tag($url_icon, 0, 0, 0, $value);
+		$img_src = $url_icon;
 	}
 
+	$str  = $this->build_icon_select( $name, $value, $options, $extra );
+	$str .= "<br />\n";
+	$str .= $this->build_icon_img_tag( $this->_IMG_ID_ICON, $img_src, 'icon' );
+
 	return $str;
+}
+
+function build_icon_select( $name, $value, $options, $extra )
+{
+	$text  = $this->build_html_select_tag_begin( $name, '', false, $extra );
+	$text .= $this->build_html_option( $this->_ICON_NONE, $this->_ICON_NONE );
+
+	foreach ($options as $opt_name => $opt_val) {
+		$text .= $this->build_html_option_selected( $opt_name, $opt_val, array($value) );
+	}
+
+	$text .= $this->build_html_select_tag_end();
+	return $text;
+}
+
+function build_icon_img_tag( $id, $src, $alt )
+{
+// sanitize
+	$id  = $this->sanitize_text($id);
+	$src = $this->sanitize_url($src);
+	$alt = $this->sanitize_text($alt);
+
+	$text  = '<img ';
+	$text .= 'id="'.$id.'" ';
+	$text .= 'src="'.$src.'" ';
+	$text .= 'alt="'.$alt.'" ';
+	$text .= 'border="0" ';
+	$text .= " />\n";
+
+	return $text;
 }
 
 function show_refresh_link($lid, $op_mode=0)

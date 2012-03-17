@@ -1,5 +1,8 @@
 <?php
-// $Id: index.php,v 1.1 2011/12/29 14:37:10 ohwada Exp $
+// $Id: index.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// move _AM_RSSC_FORM_MAP to map_manage.php
 
 // 2009-02-20 K.OHWADA
 // map
@@ -122,6 +125,8 @@ elseif ( !is_writable( $DIR_CONFIG ) )
 else
 {
 	rssc_admin_print_menu();
+	$config_form->print_check_webmap3_version();
+
 	echo "<h4>"._MI_RSSC_ADMENU_CONFIG."</h4>\n";
 	$config_form->init_form();
 
@@ -147,10 +152,6 @@ else
 	echo "<h4>"._AM_RSSC_FORM_PROXY."</h4>\n";
 	$config_form->set_form_title( _AM_RSSC_FORM_PROXY );
 	$config_form->show_by_catid( 10 );
-
-	echo "<h4>"._AM_RSSC_FORM_MAP."</h4>\n";
-	$config_form->set_form_title( _AM_RSSC_FORM_MAP );
-	$config_form->show_by_catid( 18 );
 
 	echo "<h4>"._HAPPY_LINUX_CONF_TPL_COMPILED_CLEAR."</h4>\n";
 	$config_form->show_form_template_compiled_clear( _HAPPY_LINUX_CONF_TPL_COMPILED_CLEAR );

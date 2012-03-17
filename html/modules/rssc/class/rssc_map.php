@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_map.php,v 1.1 2011/12/29 14:37:16 ohwada Exp $
+// $Id: rssc_map.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// webmap3_api_map
 
 //=========================================================
 // Rss Center Module
@@ -16,25 +19,32 @@ if( !class_exists('rssc_map') )
 class rssc_map
 {
 	var $_map_class ;
+	var $_conf;
 
-	var $_max_image_width  = 120;
-	var $_max_image_height = 120;
+	var $_map_div_id = '';
+	var $_map_func   = '';
+	var $_info_max   = 0;
+	var $_info_width = 0;
 
-	var $_DIV_STYLE = 'font-size:80%;' ;
+	var $_DIV_STYLE   = 'font-size:80%;' ;
+	var $_ELE_ID_NAME = "rssc_map";
+
+	var $_DIRNAME = '';
 
 //---------------------------------------------------------
 // constructor
 //---------------------------------------------------------
-function rssc_map()
+function rssc_map( $dirname )
 {
-	// dummy
+	$this->_DIRNAME = $dirname;
+	$this->_conf = $this->get_conf( $dirname );
 }
 
-function &getInstance()
+function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {
-		$instance = new rssc_map();
+		$instance = new rssc_map( $dirname );
 	}
 	return $instance;
 }
@@ -51,37 +61,50 @@ function init( $webmap_dirname )
 
 	include_once $file ;
 
-	if ( !class_exists( 'webmap_compo_map' ) ) {
+	if ( !class_exists( 'webmap3_api_map' ) ) {
 		return false;
 	}
 
-	$this->_map_class =& webmap_compo_map::getSingleton( $webmap_dirname );
+	$this->_map_class =& webmap3_api_map::getSingleton( $webmap_dirname );
 
-	$this->_map_class->set_show_element( false );
-	$this->_map_class->set_map_control(  'large' );
-	$this->_map_class->set_type_control( 'default' );
-	$this->_map_class->set_use_overview_map_control( true );
-	$this->_map_class->set_max_image_width(  $this->_max_image_width  );
-	$this->_map_class->set_max_image_height( $this->_max_image_height );
+	$this->_map_class->init();
+	$this->_map_class->set_latitude(  $this->_conf['webmap_latitude'] );
+	$this->_map_class->set_longitude( $this->_conf['webmap_longitude'] );
+	$this->_map_class->set_zoom(      $this->_conf['webmap_zoom'] );
+	$this->_map_class->set_overview_map_control( true );
+	$this->_map_class->set_overview_map_control_opened( true );
+
+	$this->_info_max   = _C_WEBMAP3_MAP_INFO_MAX;
+	$this->_info_width = _C_WEBMAP3_MAP_INFO_WIDTH;
 
 	return true;
 }
 
 function fetch_map( $feeds )
 {
-	$ID = 0;
+// head
+	$this->_map_class->assign_google_map_js_to_head();
+	$this->_map_class->assign_map_js_to_head();
+	$this->_map_class->assign_gicon_array_to_head();
 
+// markers
 	foreach ($feeds as $feed) {
 		$markers[] = $this->build_marker( $feed );
 	}
 
-	$icons = $this->_map_class->get_icons();
-	$param = $this->_map_class->build_marker( $ID, $markers, $icons );
-	$map   = $this->_map_class->fetch_marker( $param );
+// map
+	$this->_map_class->set_map_div_id( $this->_map_div_id ) ;
+	$this->_map_class->set_map_func(   $this->_map_func ) ;
+
+	$param = $this->_map_class->build_markers( $markers );
+	         $this->_map_class->fetch_markers_head( $param );
+	$map   = $this->_map_class->fetch_body_common(  $param );
+	$block = $this->_map_class->fetch_block_common( $param );
 
 	$arr = array(
-		'map'         => $map ,
-		'element_map' => $param['element_map'] ,
+		'map_div_id' => $this->_map_div_id ,
+		'map_js'     => $map ,
+		'block_js'   => $block ,
 	);
 	return $arr;
 }
@@ -105,6 +128,9 @@ function build_info( $feed )
 	$img_link   = '';
 	$img = '';
 	$src = '';
+
+	$this->_map_class->set_info_max(   $this->_info_max ) ;
+	$this->_map_class->set_info_width( $this->_info_width ) ;
 
 	if ( $feed['link'] ) {
 		$title_link = '<a href="'. $feed['link'] .'" target="_blank">';
@@ -163,16 +189,48 @@ function build_info( $feed )
 }
 
 //---------------------------------------------------------
+// handler for block
+//---------------------------------------------------------
+function get_conf( $DIRNAME )
+{
+	$db =& Database::getInstance();
+	$table_config = $db->prefix( $DIRNAME.'_config' );
+
+	$sql = 'SELECT * FROM '.$table_config.' ORDER BY conf_id ASC';
+
+	$res = $db->query($sql, 0, 0);
+	if ( !$res ) {
+		return false;
+	}
+
+	$conf = array();
+	while ( $row = $db->fetchArray($res) ) {
+		$conf[ $row['conf_name'] ] = $row['conf_value'];
+	}
+	return $conf;
+}
+
+//---------------------------------------------------------
 // set param
 //---------------------------------------------------------
+function set_map_div_id( $v )
+{
+	$this->_map_div_id = $v;
+}
+
+function set_map_func( $v )
+{
+	$this->_map_func = $v;
+}
+
 function set_info_max( $val )
 {
-	$this->_map_class->set_info_max($val) ;
+	$this->_info_max = $val ;
 }
 
 function set_info_width( $val )
 {
-	$this->_map_class->set_info_width($val) ;
+	$this->_info_width = $val ;
 }
 
 // --- class end ---

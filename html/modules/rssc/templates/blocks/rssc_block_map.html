@@ -1,6 +1,12 @@
-<{* $Id: rssc_block_map.html,v 1.1 2011/12/29 14:37:06 ohwada Exp $ *}>
+<{* $Id: rssc_block_map.html,v 1.2 2012/03/17 13:31:45 ohwada Exp $ *}>
 
-<{$block.map}>
-<div id="<{$block.element_map}>" style="width:100%; height:300px;">Loading ...</div>
+<{if $block.show_map}>
+  <{$block.block_js}>
+  <div id="<{$block.map_div_id}>" style="width:100%; height:300px;">Loading ...</div>
+  <br />
+  <a href="<{$xoops_url}>/modules/<{$block.dirname}>/map.php"><{$block.lang_more}></a>
+<{/if}>
 
-<a href="<{$xoops_url}>/modules/<{$block.dirname}>/index.php"><{$block.lang_more}></a>
+<{if $block.error}>
+  <span style="color:#ff0000;font-size:150%;font-weight: bold;"><{$block.error}></span>
+<{/if}>
