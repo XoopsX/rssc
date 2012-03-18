@@ -1,5 +1,8 @@
 <?php
-// $Id: feed_list_class.php,v 1.1 2011/12/29 14:37:11 ohwada Exp $
+// $Id: feed_list_class.php,v 1.2 2012/03/18 08:27:06 ohwada Exp $
+
+// 2012-03-01 K.OHWADA
+// url_feed_column_manage
 
 // 2007-11-01 K.OHWADA
 // set_flag_print_request_uri()
@@ -25,6 +28,7 @@ class admin_feed_list extends happy_linux_page_frame
 	var $_strings;
 
 	var $_total_non_act = 0;
+	var $_url_feed_column_manage ;
 
 //---------------------------------------------------------
 // constructor
@@ -50,6 +54,8 @@ function admin_feed_list()
 // class instance
 	$this->_post    =& happy_linux_post::getInstance();
 	$this->_strings =& happy_linux_strings::getInstance();
+
+	$this->_url_feed_column_manage = RSSC_URL.'/admin/feed_column_manage.php';
 }
 
 function &getInstance()
@@ -220,10 +226,15 @@ function _print_index()
 
 	echo '<table width="80%" border="0" cellspacing="1" class="outer">';
 	echo '<tr class="odd"><td>';
+	echo '<ul>';
 	echo '<li><a href="' .$this->_get_script_sortid(0).  '">'. _HAPPY_LINUX_ID_ASC.  "</a></li>\n";
 	echo '<li><a href="' .$this->_get_script_sortid(1). '">'. _HAPPY_LINUX_ID_DESC. "</a></li>\n";
 	echo '<li><a href="' .$this->_get_script_sortid(2). '">'. _AM_RSSC_NON_ACT_ASC. "</a> ". $total_non_act ."</li>\n";
 	echo '<li><a href="' .$this->_get_script_sortid(3). '">'. _AM_RSSC_NON_ACT_DESC. "</a> ". $total_non_act ."</li>\n";
+	echo '</ul>';
+	echo '<ul>';
+	echo '<li><a href="' .$this->_url_feed_column_manage. '">'. _AM_RSSC_FEED_COLUMN_MANAGE.  "</a></li>\n";
+	echo '</ul>';
 	echo "</td></tr></table>\n";
 
 	echo "<h4>". $title. "</h4>\n";

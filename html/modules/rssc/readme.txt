@@ -1,4 +1,4 @@
-$Id: readme.txt,v 1.4 2012/03/17 13:31:45 ohwada Exp $
+$Id: readme.txt,v 1.5 2012/03/18 08:27:06 ohwada Exp $
 
 =================================================
 Version: 1.20
@@ -16,6 +16,10 @@ Email:  webmaster@ohwada.net
 2. Link manage
 (1) show icon image when select google map icon.
 (2) show icon image when select icon.
+
+3. feed column manage
+enable to extend some feed columns. 
+(1) sometime entry_id or guid have 255 or more characters.
 
 
 =================================================

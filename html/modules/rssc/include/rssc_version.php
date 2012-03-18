@@ -1,5 +1,5 @@
 <?php
-// $Id: rssc_version.php,v 1.3 2012/03/17 13:31:45 ohwada Exp $
+// $Id: rssc_version.php,v 1.4 2012/03/18 08:27:06 ohwada Exp $
 
 // 2012-03-01 K.OHWADA
 // add RSSC_WEBMAP3_VERSION
@@ -16,7 +16,7 @@
 if( !defined('RSSC_VERSION') ) 
 {
 	define('RSSC_VERSION',             '1.20');
-	define('RSSC_HAPPY_LINUX_VERSION', '1.61');
+	define('RSSC_HAPPY_LINUX_VERSION', '1.70');
 	define('RSSC_WEBMAP3_VERSION',     '1.00');
 }
 

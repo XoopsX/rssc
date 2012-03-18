@@ -1,5 +1,5 @@
 <?php
-// $Id: admin.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: admin.php,v 1.3 2012/03/18 08:27:06 ohwada Exp $
 
 // 2008-01-20 K.OHWADA
 // post_plugin in link table
@@ -459,6 +459,7 @@ define('_AM_RSSC_LINK_GICON_SEL', 'Googleアイコンの選択');
 
 // === 2012-03-01 ===
 define('_AM_RSSC_MAP_MANAGE',  'GoogleMap 管理');
+define('_AM_RSSC_FEED_COLUMN_MANAGE', 'feed カラム管理');
 
 // config
 define('_AM_RSSC_CONF_WEBMAP_ADDRESS', '住所');
