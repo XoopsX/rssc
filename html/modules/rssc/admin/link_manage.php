@@ -1,5 +1,8 @@
 <?php
-// $Id: link_manage.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: link_manage.php,v 1.3 2012/03/31 04:42:39 ohwada Exp $
+
+// 2012-03-31 K.OHWADA
+// default.gif
 
 // 2012-03-01 K.OHWADA
 // webmap3_api_gicon
@@ -571,7 +574,6 @@ class admin_form_link extends happy_linux_form_lib
 // icon
 	var $_DIR_ICON_REL = "images/icons";
 	var $_IMG_ID_ICON  = 'rssc_img_icon';
-	var $_ICON_NONE    = '---';
 	var $_DIR_ICON;
 	var $_URL_ICON;
 	var $_URL_ICON_WHITE_DOT;
@@ -894,7 +896,6 @@ function _build_icon_js()
 	$url_icon = $this->_URL_ICON;
 	$url_none = $this->_URL_ICON_WHITE_DOT;
 	$img_id   = $this->_IMG_ID_ICON ;
-	$none     = $this->_ICON_NONE ;
 
 $text = <<< EOF
 <script type="text/javascript">
@@ -902,18 +903,15 @@ $text = <<< EOF
 function rssc_icon_onchange( obj ) 
 {
 	var image = "$url_none";
-
 	if ( obj != null ) {
 		var index = obj.selectedIndex;
 		if ( obj.options[index] != null ) {
 			var id = obj.options[index].value;
-
-			if ( id != "$none" ) {
+			if ( id != '' ) {
 				image = "$url_icon" + "/" + id;
 			}
 		}
 	}
-
 	var element = document.getElementById( "$img_id" );
 	if ( element != null  ) {
 		element.src = image;
@@ -929,9 +927,13 @@ EOF;
 function _build_ele_icon()
 {
 	$name    = 'icon' ;
-	$value   = $this->_obj->getVar($name, 's');
+	$value   = $this->_obj->getVar($name, 'n');
 	$options = $this->_system->get_img_list_as_array( $this->_DIR_ICON );
 	$extra   = 'onChange="rssc_icon_onchange(this)"';
+
+	if (( $value == '' )||( $value == '---' ) ) {
+		$value = 'default.gif';
+	}
 
 	$file_icon = $this->_DIR_ICON .'/'. $value;
 	$url_icon  = $this->_URL_ICON .'/'. $value;
@@ -939,7 +941,7 @@ function _build_ele_icon()
 	$img_src = '';
 
 	if ( $value && file_exists($file_icon) ) {
-		$img_src = $url_icon;
+		$img_src = $this->sanitize_url( $url_icon );
 	}
 
 	$str  = $this->build_icon_select( $name, $value, $options, $extra );
@@ -952,7 +954,6 @@ function _build_ele_icon()
 function build_icon_select( $name, $value, $options, $extra )
 {
 	$text  = $this->build_html_select_tag_begin( $name, '', false, $extra );
-	$text .= $this->build_html_option( $this->_ICON_NONE, $this->_ICON_NONE );
 
 	foreach ($options as $opt_name => $opt_val) {
 		$text .= $this->build_html_option_selected( $opt_name, $opt_val, array($value) );

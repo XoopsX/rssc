@@ -1,4 +1,4 @@
-<{* $Id: rssc_feed_list.html,v 1.1 2011/12/29 14:37:05 ohwada Exp $ *}>
+<{* $Id: rssc_feed_list.html,v 1.2 2012/03/31 04:42:39 ohwada Exp $ *}>
 
 <{* --- feed loop begin --- *}>
 <{foreach item=feed from=$feeds}>
@@ -16,10 +16,10 @@
 
 <{if $show_icon }>
   <a href="<{$xoops_url}>/modules/<{$dirname}>/single_link.php?lid=<{$feed.lid}>&amp;keywords=<{$keywords}>">
-  <{if $feed.icon != ''}>
-    <img src="<{$xoops_url}>/modules/<{$dirname}>/images/icons/<{$feed.icon}>" border="0" alt="icon" />
-  <{else}>
+  <{if ($feed.icon == '') || ($feed.icon == '---') }>
     <img src="<{$xoops_url}>/modules/<{$dirname}>/images/icons/default.gif" border="0" alt="icon" />
+  <{else}>
+    <img src="<{$xoops_url}>/modules/<{$dirname}>/images/icons/<{$feed.icon}>" border="0" alt="icon" />
   <{/if}>
   </a>
 <{/if}>

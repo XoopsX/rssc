@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_icon.php,v 1.1 2011/12/29 14:37:15 ohwada Exp $
+// $Id: rssc_icon.php,v 1.2 2012/03/31 04:42:39 ohwada Exp $
+
+// 2012-03-31 K.OHWADA
+// BUG: display accidentally, when NOT set icon
 
 //=========================================================
 // Rss Center Module
@@ -70,7 +73,11 @@ function build_icon_list( $dirname )
 	$arr  = array();
 	foreach ($rows as $row)
 	{
-		if ( empty($row['icon']) ) continue;
+
+// BUG: display accidentally, when NOT set icon
+		if (( $row['icon'] == '' )||( $row['icon'] == '---' )) {
+			continue;
+		}
 
 		$tmp['title'] = $this->sanitize( $row['title'] );
 		$tmp['lid']   = $this->sanitize( $row['lid'] );
