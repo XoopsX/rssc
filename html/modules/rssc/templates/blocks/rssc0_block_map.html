@@ -1,7 +1,12 @@
-<{* $Id: rssc0_block_map.html,v 1.2 2012/03/17 13:31:45 ohwada Exp $ *}>
+<{* $Id: rssc0_block_map.html,v 1.3 2012/04/08 23:42:22 ohwada Exp $ *}>
 
 <{if $block.show_map}>
-  <{$block.block_js}>
+<script type="text/javascript">
+//<![CDATA[
+  setTimeout( '<{$block.map_func}>()', <{$block.map_timeout}> );
+//]]>
+</script>
+
   <div id="<{$block.map_div_id}>" style="width:100%; height:300px;">Loading ...</div>
   <br />
   <a href="<{$xoops_url}>/modules/<{$block.dirname}>/map.php"><{$block.lang_more}></a>

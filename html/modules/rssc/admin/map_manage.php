@@ -1,5 +1,8 @@
 <?php
-// $Id: map_manage.php,v 1.1 2012/03/17 13:33:05 ohwada Exp $
+// $Id: map_manage.php,v 1.2 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-034-02 K.OHWADA
+// print_check_version()
 
 //=========================================================
 // RSS Center Module
@@ -7,6 +10,7 @@
 //=========================================================
 
 include_once 'admin_header_config.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_block_map.php';
 include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 //=========================================================
@@ -14,24 +18,31 @@ include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 //=========================================================
 class admin_map_manage 
 {
+	var $_conf_handler;
+	var $_config_form;
+	var $_config_store;
+ 	var $_map_class;
+ 
+	var $_conf;
 
 //---------------------------------------------------------
 // constructor
 //---------------------------------------------------------
-function admin_map_manage()
+function admin_map_manage( $dirname )
 {
-	$this->_conf_handler =& rssc_get_handler( 'config_basic', RSSC_DIRNAME );
+	$this->_conf_handler =& rssc_get_handler( 'config_basic', $dirname );
 	$this->_config_form  =& admin_config_form::getInstance();
 	$this->_config_store =& admin_config_store::getInstance();
+	$this->_map_class    =& rssc_map::getInstance( $dirname );
 
 	$this->_conf =& $this->_conf_handler->get_conf();
 }
 
-function &getInstance()
+function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {
-		$instance = new admin_map_manage();
+		$instance = new admin_map_manage( $dirname );
 	}
 	return $instance;
 }
@@ -64,10 +75,10 @@ function main()
 	echo "<h4>"._AM_RSSC_MAP_MANAGE."</h4>\n";
 	$this->_config_form->init_form();
 
-	$this->_config_form->print_check_webmap3_version();
-	$ret = $this->webmap3_init();
+	$this->_map_class->print_check_version();
+	$ret = $this->_map_class->init_html();
 	if ( $ret ) {
-		echo $this->build_map_iframe();
+		echo $this->_map_class->build_iframe();
 	}
 
 	echo "<h4>"._AM_RSSC_FORM_MAP."</h4>\n";
@@ -78,38 +89,13 @@ function main()
 	return true;
 }
 
-function webmap3_init()
-{
-	$webmap3_dirname = $this->_conf['webmap_dirname'];
-
-	$file = XOOPS_ROOT_PATH . '/modules/'.$webmap3_dirname.'/include/api_html.php';
-	if ( ! file_exists($file) ) {
-		return false;
-	}
-
-	include_once $file;
-	if ( ! class_exists('webmap3_api_html') ) {
-		return false;
-	}
-
-	$this->_html_class  =& webmap3_api_html::getSingleton( $webmap3_dirname );
-	return true;
-}
-
-function build_map_iframe()
-{
-	$url = RSSC_URL.'/get_location.php';
-	$this->_html_class->set_display_iframe_url( $url );
-	return $this->_html_class->build_display_iframe();
-}
-
-// === class end ===
+// --- class end ---
 }
 
 //=========================================================
 // main
 //=========================================================
-$manage =& admin_map_manage::getInstance();
+$manage =& admin_map_manage::getInstance( RSSC_DIRNAME );
 
 $op = $manage->get_post_get_op();
 

@@ -1,4 +1,13 @@
-# $Id: rssc.sql,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+# $Id: rssc.sql,v 1.3 2012/04/08 23:42:21 ohwada Exp $
+
+# 2012-04-02 K.OHWADA
+# link table
+#   varchar -> text
+#   url, rdf_url, rss_url, atom_url
+# feed table
+#   varchar -> text
+#   site_link, entry_id, guid, author_uri, enclosure_url, 
+#   media_content_url, media_thumbnail_url
 
 # 2011-12-29 K.OHWADA
 # TYPE=MyISAM -> ENGINE=MyISAM
@@ -79,14 +88,14 @@ CREATE TABLE rssc_link (
   p2  int(11) unsigned default '0',
   p3  int(11) unsigned default '0',
   title  varchar(255)    default '',
-  url    varchar(255)  NOT NULL default '',
+  url text NOT NULL,
   ltype  tinyint(2) unsigned default '0',
   refresh   mediumint(8) unsigned default '3600',
   headline  mediumint(8) unsigned default '0',
   mode      tinyint(3)   default '0',
-  rdf_url   varchar(255) default '',
-  rss_url   varchar(255) default '',
-  atom_url  varchar(255) default '',
+  rdf_url  text NOT NULL,
+  rss_url  text NOT NULL,
+  atom_url text NOT NULL,
   encoding  varchar(15)  default '',
   updated_unix int(10) default'0',
   channel text    NOT NULL,
@@ -137,22 +146,22 @@ CREATE TABLE rssc_feed (
   p2  int(11) unsigned default '0',
   p3  int(11) unsigned default '0',
   site_title varchar(255) default '',
-  site_link  varchar(255) default '',
+  site_link  text NOT NULL,
   title  varchar(255) NOT NULL default '',
   link   text NOT NULL,
-  entry_id  varchar(255) default '',
-  guid      varchar(255) default '',
+  entry_id  text NOT NULL,
+  guid      text NOT NULL,
   updated_unix   int(10) default '0',
   published_unix int(10) default '0',
   category  varchar(255) default '',
   author_name  varchar(255) default '',
-  author_uri   varchar(255) default '',
+  author_uri   text NOT NULL,
   author_email varchar(255) default '',
   type_cont    varchar(255) default '',
   raws    text NOT NULL,
   content text NOT NULL,
   search  text NOT NULL,
-  enclosure_url  varchar(255) default '',
+  enclosure_url  text NOT NULL,
   enclosure_type varchar(255) default '',
   enclosure_length int(5) default '0',
   aux_int_1 int(5) default '0',
@@ -162,13 +171,13 @@ CREATE TABLE rssc_feed (
   act   tinyint(1) default '1',
   geo_lat  double(10,8) NOT NULL default '0',
   geo_long double(11,8) NOT NULL default '0',
-  media_content_url    varchar(255) default '',
+  media_content_url    text NOT NULL,
   media_content_type   varchar(255) default '',
   media_content_medium varchar(255) default '',
   media_content_filesize int(10) default '0',
   media_content_width    int(10) default '0',
   media_content_height   int(10) default '0',
-  media_thumbnail_url    varchar(255) default '',
+  media_thumbnail_url    text NOT NULL,
   media_thumbnail_width  int(10) default '0',
   media_thumbnail_height int(10) default '0',
   PRIMARY KEY  (fid),

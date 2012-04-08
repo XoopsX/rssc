@@ -1,4 +1,4 @@
-<{* $Id: rssc0_single_feed.html,v 1.1 2011/12/29 14:37:05 ohwada Exp $ *}>
+<{* $Id: rssc0_single_feed.html,v 1.2 2012/04/08 23:42:22 ohwada Exp $ *}>
 
 &nbsp;
 <a href="<{$xoops_url}>/"><{$lang_home}></a>
@@ -75,13 +75,25 @@
     <{/if}>
     <br />
   <{/if}>
+
+  <{if $feed.thumb_url_s != '' }>
+    <div>
+    <a href="<{$feed.link}>" target="_blank">
+    <{if ($feed.thumb_width > 0) && ($feed.thumb_height > 0 ) }>
+      <img src="<{$feed.thumb_url_s}>" width="<{$feed.thumb_width}>" height="<{$feed.thumb_height}>" border="0" alt="<{$feed.title}>" />
+    <{else}>
+      <img src="<{$feed.thumb_url_s}>" width="<{$max_width}>" border="0" alt="<{$feed.title}>" />
+    <{/if}>
+    </a>
+    </div>
+  <{/if}>
+
   <{if ($feed.summary != '') }>
     <div class="rssc_summary"><{$feed.summary|wordwrap:160}></div>
   <{/if}>
   <{if ($feed.content != '') }>
     <div class="rssc_content"><{$feed.content|wordwrap:160}></div>
   <{/if}>
-  <br />
 
 <{else}>
   <font color="blue"><{$lang_no_feed}></font><br />

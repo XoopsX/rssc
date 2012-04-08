@@ -1,4 +1,13 @@
-# $Id: rssc0.sql,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+# $Id: rssc0.sql,v 1.3 2012/04/08 23:42:21 ohwada Exp $
+
+# 2012-04-02 K.OHWADA
+# link table
+#   varchar -> text
+#   url, rdf_url, rss_url, atom_url
+# feed table
+#   varchar -> text
+#   site_link, entry_id, guid, author_uri, enclosure_url, 
+#   media_content_url, media_thumbnail_url
 
 # 2011-12-29 K.OHWADA
 # TYPE=MyISAM -> ENGINE=MyISAM
@@ -48,11 +57,11 @@
 # =========================================================
 
 #
-# Table structure for table `rssc0_config`
+# Table structure for table `rssc_config`
 # modify from system `config`
 #
 
-CREATE TABLE rssc0_config (
+CREATE TABLE rssc_config (
   id smallint(5) unsigned NOT NULL auto_increment,
   conf_id smallint(5) unsigned NOT NULL default 0,
   conf_name varchar(255) NOT NULL default '',
@@ -68,10 +77,10 @@ CREATE TABLE rssc0_config (
 # --------------------------------------------------------
 
 #
-# Table structure for table `rssc0_link`
+# Table structure for table `rssc_link`
 #
 
-CREATE TABLE rssc0_link (
+CREATE TABLE rssc_link (
   lid int(11) unsigned NOT NULL auto_increment,
   uid int(11) unsigned default '0',
   mid int(11) unsigned default '0',
@@ -79,14 +88,14 @@ CREATE TABLE rssc0_link (
   p2  int(11) unsigned default '0',
   p3  int(11) unsigned default '0',
   title  varchar(255)    default '',
-  url    varchar(255)  NOT NULL default '',
+  url text NOT NULL,
   ltype  tinyint(2) unsigned default '0',
   refresh   mediumint(8) unsigned default '3600',
   headline  mediumint(8) unsigned default '0',
   mode      tinyint(3)   default '0',
-  rdf_url   varchar(255) default '',
-  rss_url   varchar(255) default '',
-  atom_url  varchar(255) default '',
+  rdf_url  text NOT NULL,
+  rss_url  text NOT NULL,
+  atom_url text NOT NULL,
   encoding  varchar(15)  default '',
   updated_unix int(10) default'0',
   channel text    NOT NULL,
@@ -108,10 +117,10 @@ CREATE TABLE rssc0_link (
 # --------------------------------------------------------
 
 #
-# Table structure for table `rssc0_xml`
+# Table structure for table `rssc_xml`
 #
 
-CREATE TABLE rssc0_xml (
+CREATE TABLE rssc_xml (
   xid int(11) unsigned NOT NULL auto_increment,
   lid int(11) unsigned default '0',
   xml  mediumtext NOT NULL,
@@ -125,10 +134,10 @@ CREATE TABLE rssc0_xml (
 # --------------------------------------------------------
 
 #
-# Table structure for table `rssc0_feed`
+# Table structure for table `rssc_feed`
 #
 
-CREATE TABLE rssc0_feed (
+CREATE TABLE rssc_feed (
   fid int(11) unsigned NOT NULL auto_increment,
   lid int(11) unsigned NOT NULL default '0',
   uid int(11) unsigned default '0',
@@ -137,22 +146,22 @@ CREATE TABLE rssc0_feed (
   p2  int(11) unsigned default '0',
   p3  int(11) unsigned default '0',
   site_title varchar(255) default '',
-  site_link  varchar(255) default '',
+  site_link  text NOT NULL,
   title  varchar(255) NOT NULL default '',
   link   text NOT NULL,
-  entry_id  varchar(255) default '',
-  guid      varchar(255) default '',
+  entry_id  text NOT NULL,
+  guid      text NOT NULL,
   updated_unix   int(10) default '0',
   published_unix int(10) default '0',
   category  varchar(255) default '',
   author_name  varchar(255) default '',
-  author_uri   varchar(255) default '',
+  author_uri   text NOT NULL,
   author_email varchar(255) default '',
   type_cont    varchar(255) default '',
   raws    text NOT NULL,
   content text NOT NULL,
   search  text NOT NULL,
-  enclosure_url  varchar(255) default '',
+  enclosure_url  text NOT NULL,
   enclosure_type varchar(255) default '',
   enclosure_length int(5) default '0',
   aux_int_1 int(5) default '0',
@@ -162,13 +171,13 @@ CREATE TABLE rssc0_feed (
   act   tinyint(1) default '1',
   geo_lat  double(10,8) NOT NULL default '0',
   geo_long double(11,8) NOT NULL default '0',
-  media_content_url    varchar(255) default '',
+  media_content_url    text NOT NULL,
   media_content_type   varchar(255) default '',
   media_content_medium varchar(255) default '',
   media_content_filesize int(10) default '0',
   media_content_width    int(10) default '0',
   media_content_height   int(10) default '0',
-  media_thumbnail_url    varchar(255) default '',
+  media_thumbnail_url    text NOT NULL,
   media_thumbnail_width  int(10) default '0',
   media_thumbnail_height int(10) default '0',
   PRIMARY KEY  (fid),
@@ -184,10 +193,10 @@ CREATE TABLE rssc0_feed (
 # --------------------------------------------------------
 
 #
-# Table structure for table `rssc0_black`
+# Table structure for table `rssc_black`
 #
 
-CREATE TABLE rssc0_black (
+CREATE TABLE rssc_black (
   bid int(11) unsigned NOT NULL auto_increment,
   lid int(11) unsigned default '0',
   uid int(11) unsigned default '0',
@@ -212,10 +221,10 @@ CREATE TABLE rssc0_black (
 # --------------------------------------------------------
 
 #
-# Table structure for table `rssc0_white`
+# Table structure for table `rssc_white`
 #
 
-CREATE TABLE rssc0_white (
+CREATE TABLE rssc_white (
   wid int(11) unsigned NOT NULL auto_increment,
   lid int(11) unsigned default '0',
   uid int(11) unsigned default '0',
@@ -240,10 +249,10 @@ CREATE TABLE rssc0_white (
 # --------------------------------------------------------
 
 #
-# Table structure for table `rssc0_word`
+# Table structure for table `rssc_word`
 #
 
-CREATE TABLE rssc0_word (
+CREATE TABLE rssc_word (
   sid   int(11) unsigned NOT NULL auto_increment,
   word  varchar(255) default '',
   reg   tinyint(1) default '0',
@@ -258,5 +267,5 @@ CREATE TABLE rssc0_word (
 ) ENGINE=MyISAM;
 # --------------------------------------------------------
 
-INSERT INTO rssc0_link VALUES (1, 1, 0, 0, 0, 0, 'XOOPS.org', 'http://www.xoops.org/', 2, 3600, 1, 2, '', 'http://www.xoops.org/backend.php', '', 'utf-8', 0, '', '', 0, 0, '', '', 1, '', '', '', '', 0 );
-INSERT INTO rssc0_xml VALUES (1, 1, '', 0, 0, '', '');
+INSERT INTO rssc_link VALUES (1, 1, 0, 0, 0, 0, 'XOOPS.org', 'http://www.xoops.org/', 2, 3600, 1, 2, '', 'http://www.xoops.org/backend.php', '', 'utf-8', 0, '', '', 0, 0, '', '', 1, '', '', '', '', 0 );
+INSERT INTO rssc_xml VALUES (1, 1, '', 0, 0, '', '');

@@ -1,5 +1,8 @@
 <?php
-// $Id: map.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: map.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// remove rssc_map.php
 
 // 2012-03-01 K.OHWADA
 // rssc_map::getInstance( RSSC_DIRNAME )
@@ -14,7 +17,7 @@
 
 include 'header.php';
 include_once RSSC_ROOT_PATH.'/class/rssc_view_handler.php';
-include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_block_map.php';
 
 $view_handler  =& rssc_get_handler( 'view',         RSSC_DIRNAME );
 $conf_handler  =& rssc_get_handler( 'config_basic', RSSC_DIRNAME );
@@ -23,10 +26,8 @@ $icon_class    =& rssc_icon::getInstance();
 $post          =& happy_linux_post::getInstance();
 $pagenavi      =& happy_linux_pagenavi::getInstance();
 
-$MAP_IMAGE_WIDTH  = 120;
-$MAP_IMAGE_HEIGHT = 120;
-$map_div_id = RSSC_DIRNAME.'_map_0';
-$map_func   = RSSC_DIRNAME.'_load_map_0';
+$map_div_id = RSSC_DIRNAME.'_map';
+$map_func   = RSSC_DIRNAME.'_map_load';
 
 // --- template start ---
 // xoopsOption[template_main] should be defined before including header.php
@@ -55,7 +56,7 @@ $ele_id_map  = null;
 $feed_list   = null ;
 $icon_list   = null ;
 
-$ret = $map_class->init( $webmap_dirname );
+$ret = $map_class->init_map( $webmap_dirname );
 if ( $ret ) {
 
 	$view_handler->setFeedOrder(  $conf['main_map_order'] );
@@ -83,15 +84,11 @@ if ( $ret ) {
 
 	if ( is_array($feeds) && count($feeds) ) {
 		$feed_show = 1;
-		$show_map  = 1;
 
 		$map_class->set_map_div_id( $map_div_id ) ;
 		$map_class->set_map_func(   $map_func ) ;
-		$map_class->set_info_max(   $MAP_IMAGE_WIDTH ) ;
-		$map_class->set_info_width( $MAP_IMAGE_HEIGHT ) ;
 
-		$param  = $map_class->fetch_map( $feeds );
-		$map_js = $param['map_js'] ;
+		$show_map = $map_class->fetch_map( $feeds );
 
 		$param = array(
 			'feeds'      => $feeds ,
@@ -115,8 +112,8 @@ if ( $ret ) {
 }
 
 $xoopsTpl->assign('show_map',   $show_map );
-$xoopsTpl->assign('map_js',     $map_js );
 $xoopsTpl->assign('map_div_id', $map_div_id );
+$xoopsTpl->assign('map_func',   $map_func );
 
 // Notice [PHP]: Undefined variable: feed_list
 $xoopsTpl->assign('feed_list',   $feed_list );

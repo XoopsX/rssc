@@ -1,5 +1,8 @@
 <?php
-// $Id: single_link.php,v 1.1 2011/12/29 14:37:03 ohwada Exp $
+// $Id: single_link.php,v 1.2 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// $conf['basic_url']
 
 // 2007-11-01 K.OHWADA
 // happy_linux_get_memory_usage_mb()
@@ -124,6 +127,7 @@ $xoopsTpl->assign('link',  $link);
 $xoopsTpl->assign('feed',  $feed);
 $xoopsTpl->assign('mode',  $mode);
 $xoopsTpl->assign('rssc_keywords',   $urlencode);
+$xoopsTpl->assign('conf_url', $conf['basic_url']);
 
 // page title
 $module_name_s = $view_handler->get_module_name('s');

@@ -1,5 +1,9 @@
 <?php
-// $Id: rssc_install.php,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+// $Id: rssc_install.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// _update_link_130()
+// _update_feed_130()
 
 // 2011-12-29 K.OHWADA
 // TYPE=MyISAM -> ENGINE=MyISAM
@@ -109,6 +113,11 @@ function check_update()
 		return false;
 	}
 
+	if ( !$this->_check_link_130() ) {
+		$this->_set_error( 'NOT link 130' );
+		return false;
+	}
+
 	if ( !$this->_check_link_100() ) {
 		$this->_set_error( 'NOT link 100' );
 		return false;
@@ -151,6 +160,12 @@ function check_update()
 
 	if ( !$this->_check_white_070() ) {
 		$this->_set_error( 'NOT white 070' );
+		return false;
+	}
+
+
+	if ( !$this->_check_feed_130() ) {
+		$this->_set_error( 'NOT feed 130' );
 		return false;
 	}
 
@@ -209,15 +224,20 @@ function update()
 		$this->set_msg( $this->build_update_msg( $this->_config_table ) );
 	}
 
+	$this->check_and_update_table( 'link',  '130' );
 	$this->check_and_update_table( 'link',  '070' );
 	$this->check_and_update_table( 'link',  '080_1' );
 	$this->check_and_update_table( 'link',  '080_2' );
 	$this->check_and_update_table( 'link',  '080_3' );
 	$this->check_and_update_table( 'link',  '100' );
+
 	$this->check_and_update_table( 'black', '060' );
 	$this->check_and_update_table( 'black', '070' );
+
 	$this->check_and_update_table( 'white', '060' );
 	$this->check_and_update_table( 'white', '070' );
+
+	$this->check_and_update_table( 'feed',  '130' );
 	$this->check_and_update_table( 'feed',  '030' );
 	$this->check_and_update_table( 'feed',  '060' );
 	$this->check_and_update_table( 'feed',  '090' );
@@ -373,6 +393,12 @@ CREATE TABLE ".$this->_word_table." (
 //---------------------------------------------------------
 // link table
 //---------------------------------------------------------
+function _check_link_130()
+{
+	return $this->preg_match_column_type_array( 
+		$this->_link_table, 'url', array('text','blob') );
+}
+
 function _check_link_100()
 {
 	return $this->exists_column( $this->_link_table, 'gicon_id' );
@@ -398,6 +424,19 @@ function _check_link_080_3()
 function _check_link_070()
 {
 	return $this->exists_column( $this->_link_table, 'enclosure' );
+}
+
+function _update_link_130()
+{
+$sql = "
+  ALTER TABLE ".$this->_link_table." 
+  MODIFY url      text NOT NULL,
+  MODIFY rdf_url  text NOT NULL,
+  MODIFY rss_url  text NOT NULL,
+  MODIFY atom_url text NOT NULL
+";
+
+	return $this->query($sql);
 }
 
 function _update_link_100()
@@ -472,6 +511,12 @@ function &_get_link_rows()
 //---------------------------------------------------------
 // feed table
 //---------------------------------------------------------
+function _check_feed_130()
+{
+	return $this->preg_match_column_type_array( 
+		$this->_feed_table, 'site_link', array('text','blob') );
+}
+
 function _check_feed_100()
 {
 	return $this->exists_column( $this->_feed_table, 'geo_lat' );
@@ -491,6 +536,23 @@ function _check_feed_060()
 function _check_feed_030()
 {
 	return $this->exists_column( $this->_feed_table, 'enclosure_url' );
+}
+
+function _update_feed_130()
+{
+
+$sql = "
+  ALTER TABLE ".$this->_feed_table."
+  MODIFY site_link           text NOT NULL,
+  MODIFY entry_id            text NOT NULL,
+  MODIFY guid                text NOT NULL,
+  MODIFY author_uri          text NOT NULL,
+  MODIFY enclosure_url       text NOT NULL,
+  MODIFY media_content_url   text NOT NULL,
+  MODIFY media_thumbnail_url text NOT NULL
+";
+
+	return $this->query($sql);
 }
 
 function _update_feed_100()

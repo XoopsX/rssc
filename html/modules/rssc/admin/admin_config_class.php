@@ -1,5 +1,8 @@
 <?php
-// $Id: admin_config_class.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: admin_config_class.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// remove print_check_webmap3_version()
 
 // 2012-03-01 K.OHWADA
 // build_conf_extra_webmpa3_dirname_list
@@ -210,49 +213,6 @@ function build_conf_extra_webmpa3_dirname_list( $config )
 	$options = $this->_system->get_dirname_list( $modules, $param );
 
 	return $this->build_html_select( $name, $value, $options );
-}
-
-//---------------------------------------------------------
-// webmap3 version
-//---------------------------------------------------------
-function print_check_webmap3_version()
-{
-	if ( $this->check_webmap3_installed() ) {
-		if ( ! $this->check_webmap3_version() ) {
-			$this->print_warning_webmap3_version();
-		}
-	}
-}
-
-function check_webmap3_installed()
-{
-	$webmap3_dirname = $this->get_value_by_name( 'webmap_dirname' );
-
-	$file = XOOPS_ROOT_PATH . '/modules/'.$webmap3_dirname.'/include/webmap3_version.php';
-	if ( ! file_exists($file) ) {
-		return false;
-	}
-
-	include_once $file;
-	if ( ! defined('_C_WEBMAP3_VERSION') ) {
-		return false;
-	}
-
-	return true;
-}
-
-function check_webmap3_version()
-{
-	if ( _C_WEBMAP3_VERSION < RSSC_WEBMAP3_VERSION ) {
-		return false;
-	}
-	return true;
-}
-
-function print_warning_webmap3_version()
-{
-	$msg = 'require webmap3 module v'.RSSC_WEBMAP3_VERSION.' or later';
-	xoops_error( $msg );
 }
 
 // --- class end ---

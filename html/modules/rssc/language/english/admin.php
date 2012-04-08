@@ -1,5 +1,5 @@
 <?php
-// $Id: admin.php,v 1.3 2012/03/18 08:27:06 ohwada Exp $
+// $Id: admin.php,v 1.4 2012/04/08 23:42:20 ohwada Exp $
 
 // 2008-01-20 K.OHWADA
 // post_plugin in link table
@@ -474,6 +474,12 @@ define('_AM_RSSC_CONF_WEBMAP_ADDRESS_DESC', 'Memo which shows the place of latit
 define('_AM_RSSC_CONF_WEBMAP_LATITUDE',  'Latitude');
 define('_AM_RSSC_CONF_WEBMAP_LONGITUDE', 'Longitude');
 define('_AM_RSSC_CONF_WEBMAP_ZOOM',      'Zoom');
+
+// === 2012-04-02 ===
+define('_AM_RSSC_CONF_URL', 'Select URL');
+define('_AM_RSSC_CONF_URL_DESC', 'Hyper link of title');
+define('_AM_RSSC_CONF_URL_0', 'URL of original site');
+define('_AM_RSSC_CONF_URL_1', 'singlefeed of RSSC');
 
 }
 // --- define language begin ---

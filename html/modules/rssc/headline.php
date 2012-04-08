@@ -1,5 +1,8 @@
 <?php
-// $Id: headline.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: headline.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// remove rssc_map.php
 
 // 2012-03-01 K.OHWADA
 // rssc_map::getInstance( RSSC_DIRNAME )
@@ -47,7 +50,6 @@ include 'header.php';
 include_once RSSC_ROOT_PATH.'/api/refresh.php';
 include_once RSSC_ROOT_PATH.'/class/rssc_headline_handler.php';
 include_once RSSC_ROOT_PATH.'/class/rssc_view_handler.php';
-include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 $headline_handler =& rssc_get_handler( 'headline',     RSSC_DIRNAME );
 $view_handler     =& rssc_get_handler( 'view',         RSSC_DIRNAME );
@@ -94,7 +96,7 @@ $feed_total = 0;
 $feed_list  = null ;
 $show_title_map = false;
 
-$ret = $map_class->init( $webmap_dirname );
+$ret = $map_class->init_map( $webmap_dirname );
 if ( $ret ) {
 	$show_title_map = true ;
 }

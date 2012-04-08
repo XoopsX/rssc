@@ -1,11 +1,44 @@
-$Id: readme.txt,v 1.5 2012/03/18 08:27:06 ohwada Exp $
+$Id: readme.txt,v 1.6 2012/04/08 23:42:20 ohwada Exp $
+
+=================================================
+Version: 1.30
+Date:   2012-04-02
+Author: Kenichi OHWADA
+URL:    http://linux2.ohwada.net/
+Email:  webmaster@ohwada.net
+=================================================
+
+* Changes *
+1. Added "Select url" in admin page
+Admin can choice the original site url or single_feed.php of RSSC
+in the hyperlink of a title and the link of a RSS output.
+http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=1273&forum=9
+
+2. Some changes with change of Webmap3 module.
+
+3. Bugfix
+(1) Wrong icon is displayed, NOT set icon.
+
+4. Langauge pack
+(1) Added Russian ( CP1251 & UTF-8 )
+Files in language directory and extra directory.
+Special thanks, Anthony xoops-org.ru .
+
+
+Åú DB table structure
+(1) link table
+Changed following fields, from varchar to text.
+url, rdf_url, rss_url, atom_url
+
+(2) feed ÉeÅ[ÉuÉã
+Changed following fields, from varchar to text.
+site_link, entry_id, guid, author_uri, enclosure_url, 
+media_content_url, media_thumbnail_url
+
 
 =================================================
 Version: 1.20
 Date:   2012-03-01
-Author: Kenichi OHWADA
-URL:    http://linux2.ohwada.net/
-Email:  webmaster@ohwada.net
 =================================================
 
 * Changes *

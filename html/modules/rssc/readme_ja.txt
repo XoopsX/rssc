@@ -1,11 +1,44 @@
-$Id: readme_ja.txt,v 1.4 2012/03/18 08:27:06 ohwada Exp $
+$Id: readme_ja.txt,v 1.5 2012/04/08 23:42:20 ohwada Exp $
+
+=================================================
+Version: 1.30
+Date:   2012-04-02
+Author: Kenichi OHWADA
+URL:    http://linux.ohwada.jp/
+Email:  webmaster@ohwada.jp
+=================================================
+
+● 変更内容
+1. 管理者の設定に url 選択を追加した
+タイトルのハイパーリンクと、RSS出力のリンクにおいて、
+元のサイトとRSSCのsingle_feed.phpとの選択ができる
+http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=1273&forum=9
+
+2. Webmap3 の変更に伴う若干の変更
+
+3. バグ対策
+(1) アイコンを指定していないときに、誤ったアイコンが表示される
+
+4. 言語ファイル
+(1) ロシア語 ( CP1251 & UTF-8 ) を追加した
+language ディレクトリの他に extra ディレクトリにも置いている
+多謝 Anthony xoops-org.ru 
+
+
+● テーブル構造
+(1) link テーブル
+下記のカラムの属性を varchar から text に変更した
+url, rdf_url, rss_url, atom_url
+
+(2) feed テーブル
+下記のカラムの属性を varchar から text に変更した
+site_link, entry_id, guid, author_uri, enclosure_url, 
+media_content_url, media_thumbnail_url
+
 
 =================================================
 Version: 1.20
 Date:   2012-03-01
-Author: Kenichi OHWADA
-URL:    http://linux.ohwada.jp/
-Email:  webmaster@ohwada.jp
 =================================================
 
 ● 変更内容

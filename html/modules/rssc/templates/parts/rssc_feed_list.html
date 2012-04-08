@@ -1,4 +1,4 @@
-<{* $Id: rssc_feed_list.html,v 1.2 2012/03/31 04:42:39 ohwada Exp $ *}>
+<{* $Id: rssc_feed_list.html,v 1.3 2012/04/08 23:42:22 ohwada Exp $ *}>
 
 <{* --- feed loop begin --- *}>
 <{foreach item=feed from=$feeds}>
@@ -24,7 +24,9 @@
   </a>
 <{/if}>
 
-<{if ($feed.link != '') }>
+<{if $conf_url == 1 }>
+  <a href="<{$xoops_url}>/modules/<{$dirname}>/single_feed.php?fid=<{$feed.fid}>"><{$feed.title}></a>
+<{elseif ($feed.link != '') }>
   <a href="<{$feed.link}>" target="_blank"><{$feed.title}></a>
 <{else}>
   <{$feed.title}>

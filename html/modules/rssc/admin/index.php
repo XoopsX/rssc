@@ -1,5 +1,8 @@
 <?php
-// $Id: index.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: index.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// rssc_map
 
 // 2012-03-01 K.OHWADA
 // move _AM_RSSC_FORM_MAP to map_manage.php
@@ -39,12 +42,15 @@
 //=========================================================
 
 include_once 'admin_header_config.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_block_map.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 $DIR_CONFIG = RSSC_ROOT_PATH.'/cache';
 
 // class
 $config_form  =& admin_config_form::getInstance();
 $config_store =& admin_config_store::getInstance();
+$map_class    =& rssc_map::getInstance( RSSC_DIRNAME );
 
 $op = $config_form->get_post_get_op();
 
@@ -125,7 +131,7 @@ elseif ( !is_writable( $DIR_CONFIG ) )
 else
 {
 	rssc_admin_print_menu();
-	$config_form->print_check_webmap3_version();
+	$map_class->print_check_version();
 
 	echo "<h4>"._MI_RSSC_ADMENU_CONFIG."</h4>\n";
 	$config_form->init_form();

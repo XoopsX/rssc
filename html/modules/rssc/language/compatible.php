@@ -1,5 +1,5 @@
 <?php
-// $Id: compatible.php,v 1.1 2011/12/29 14:37:06 ohwada Exp $
+// $Id: compatible.php,v 1.2 2012/04/08 23:42:20 ohwada Exp $
 
 // 2008-01-20 K.OHWADA
 // post_plugin in link table
@@ -29,6 +29,37 @@
 // RSS Center Module
 // 2006-06-04 K.OHWADA
 //=========================================================
+
+//---------------------------------------------------------
+// compatible for v1.30
+//---------------------------------------------------------
+if( !defined('_AM_RSSC_MAP_MANAGE') ) 
+{
+
+define('_AM_RSSC_CONF_URL', 'Select URL');
+define('_AM_RSSC_CONF_URL_DESC', 'Hyper link of title');
+define('_AM_RSSC_CONF_URL_0', 'URL of original site');
+define('_AM_RSSC_CONF_URL_1', 'singlefeed of RSSC');
+
+}
+
+//---------------------------------------------------------
+// compatible for v1.20
+//---------------------------------------------------------
+if( !defined('_AM_RSSC_MAP_MANAGE') ) 
+{
+
+define('_AM_RSSC_MAP_MANAGE',  'GoogleMap Manage');
+define('_AM_RSSC_FEED_COLUMN_MANAGE', 'Feed Column Manage');
+
+// config
+define('_AM_RSSC_CONF_WEBMAP_ADDRESS', 'Address');
+define('_AM_RSSC_CONF_WEBMAP_ADDRESS_DESC', 'Memo which shows the place of latitude and longitude');
+define('_AM_RSSC_CONF_WEBMAP_LATITUDE',  'Latitude');
+define('_AM_RSSC_CONF_WEBMAP_LONGITUDE', 'Longitude');
+define('_AM_RSSC_CONF_WEBMAP_ZOOM',      'Zoom');
+
+}
 
 //---------------------------------------------------------
 // compatible for v1.0

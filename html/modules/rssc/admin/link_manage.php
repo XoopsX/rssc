@@ -1,5 +1,8 @@
 <?php
-// $Id: link_manage.php,v 1.3 2012/03/31 04:42:39 ohwada Exp $
+// $Id: link_manage.php,v 1.4 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// rssc_map
 
 // 2012-03-31 K.OHWADA
 // default.gif
@@ -58,6 +61,8 @@ include 'admin_header.php';
 
 include_once RSSC_ROOT_PATH.'/api/refresh.php';
 include_once RSSC_ROOT_PATH.'/admin/admin_manage_base_class.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_block_map.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 //=========================================================
 // class link manage
@@ -562,6 +567,7 @@ class admin_form_link extends happy_linux_form_lib
 	var $_post;
 	var $_system;
 	var $_html_class;
+	var $_map_class;
 
 	var $_conf;
 
@@ -590,6 +596,7 @@ function admin_form_link()
 	$this->_feed_handler  =& rssc_get_handler('feed', RSSC_DIRNAME);
 	$this->_post          =& happy_linux_post::getInstance();
 	$this->_system        =& happy_linux_system::getInstance();
+	$this->_map_class     =& rssc_map::getInstance( RSSC_DIRNAME );
 
 	$conf_handler =& rssc_get_handler( 'config_basic', RSSC_DIRNAME );
 	$this->_conf  =  $conf_handler->get_conf();
@@ -621,11 +628,9 @@ function _show(&$obj, $extra=null, $show_mode=0)
 	echo $this->_build_icon_js();
 
 	$webmap3_flag    = false;
-	$webmap3_dirname = $this->_conf['webmap_dirname'] ;
-	if ( $this->_check_webmap( $webmap3_dirname ) ) {
+	if ( $this->_map_class->init_form() ) {
 		$webmap3_flag = true;
-		echo $this->_build_gicon_js();
-		echo $this->_build_gicons_js();
+		echo $this->_map_class->build_form_js();
 	}
 
 	switch ($show_mode) 
@@ -832,63 +837,10 @@ function _show(&$obj, $extra=null, $show_mode=0)
 
 }
 
-function _check_webmap( $webmap_dirname )
-{
-	$file1 = XOOPS_ROOT_PATH.'/modules/'. $webmap_dirname .'/include/api_gicon.php' ;
-	$file2 = XOOPS_ROOT_PATH.'/modules/'. $webmap_dirname .'/include/api_html.php' ;
-
-	if ( !is_file($file1) ) {
-		return false;
-	}
-	if ( !is_file($file2) ) {
-		return false;
-	}
-
-	include_once $file1 ;
-	include_once $file2 ;
-
-	if ( ! class_exists('webmap3_api_gicon') ) {
-		return false;
-	}
-	if ( ! class_exists('webmap3_api_html') ) {
-		return false;
-	}
-
-	$this->_gicon_class =& webmap3_api_gicon::getSingleton( $webmap_dirname );
-	$this->_html_class  =& webmap3_api_html::getSingleton(  $webmap_dirname );
-
-	return true;
-}
-
-function _build_gicon_js()
-{
-	list($show, $js) = $this->_gicon_class->assign_gicon_js_to_head( false );
-	return $js;
-}
-
-function _build_gicons_js()
-{
-	return $this->_gicon_class->get_gicons_js();
-}
-
 function _build_ele_gicon()
 {
-	$id      = $this->_obj->getVar('gicon_id');
-	$options = $this->_gicon_class->get_sel_options( true );
-	$img_src = $this->_gicon_class->get_image_url( $id ) ;
-
-	$this->_html_class->set_gicon_id( $id );
-	$this->_html_class->set_gicon_options( $options );
-	$this->_html_class->set_gicon_img_src( $img_src );
-	$this->_html_class->set_gicon_select_name(    'gicon_id' );
-	$this->_html_class->set_gicon_select_id( 'rssc_gicon_id' );
-	$this->_html_class->set_gicon_img_id(    'rssc_gicon_img' );
-
-	$text  = $this->_html_class->build_gicon_select();
-	$text .= "<br />\n";
-	$text .= $this->_html_class->build_gicon_img();
-
-	return $text;
+	$id = $this->_obj->getVar('gicon_id');
+	return $this->_map_class->build_ele_gicon( $id );
 }
 
 function _build_icon_js()

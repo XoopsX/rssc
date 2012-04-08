@@ -1,5 +1,9 @@
 <?php
-// $Id: rssc_block.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: rssc_block.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// rssc_block_map
+// conf_url
 
 // 2012-03-01 K.OHWADA
 // rssc_map::getInstance( $rssc_dirname )
@@ -98,6 +102,7 @@ function show_latest( $DIRNAME )
 		'show_site'   => $conf_data['block_latest_show_site'] ,
 		'mode_date'   => $conf_data['block_latest_mode_date'] ,
 		'num_content' => $conf_data['block_latest_num_content'] ,
+		'conf_url'    => $conf_data['basic_url'] ,
 	);
 
 	$feed_list = $this->fetch_tpl_feed_list( $tpl_param );
@@ -117,6 +122,8 @@ function show_latest( $DIRNAME )
 //---------------------------------------------------------
 function show_map( $DIRNAME )
 {
+	$map_timeout = 1000;
+
 	$block = array();
 	$block['dirname']      = $DIRNAME;
 	$block['lang_more']    = _BL_RSSC_MORE;
@@ -150,29 +157,28 @@ function show_map( $DIRNAME )
 
 	$feeds = $this->build_feeds( $rows, $build_param );
 
-	$map_div_id = $DIRNAME.'_map_block_0' ;
-	$map_func   = $DIRNAME.'_load_map_block_0';
+	$map_div_id = $DIRNAME.'_map_block' ;
+	$map_func   = $DIRNAME.'_map_block_load';
 
 	$webmap_param = array(
-		'dirname'        => $DIRNAME ,
-		'map_div_id'     => $map_div_id ,
-		'map_func'       => $map_func ,
-		'webmap_dirname' => $conf_data['webmap_dirname'] ,
-		'info_max'       => $conf_data['block_map_info_max'] ,
-		'info_width'     => $conf_data['block_map_info_width'] ,
-		'feeds'          => $feeds ,
+		'dirname'    => $DIRNAME ,
+		'map_div_id' => $map_div_id ,
+		'map_func'   => $map_func ,
+		'feeds'      => $feeds ,
+		'conf'       => $conf_data ,
 	);
 
-	$map_param = $this->get_map( $webmap_param );
-	if ( !is_array($map_param) ) {
+	$ret = $this->get_map( $webmap_param );
+	if ( !$ret ) {
 		$block['error'] = 'no map' ;
 		return $block ;
 	}
 
-	$block['show_map']   = true;
-	$block['feeds']      = $feeds;
-	$block['map_div_id'] = $map_div_id ;
-	$block['block_js']   = $map_param['block_js'] ;
+	$block['show_map']    = true;
+	$block['feeds']       = $feeds;
+	$block['map_div_id']  = $map_div_id ;
+	$block['map_func']    = $map_func ;
+	$block['map_timeout'] = $map_timeout ;
 
 	return $block ;
 }
@@ -213,6 +219,7 @@ function show_headline( $DIRNAME )
 		'show_site'   => false ,
 		'mode_date'   => $conf_data['block_headline_mode_date'] ,
 		'num_content' => $conf_data['block_headline_num_content'] ,
+		'conf_url'    => $conf_data['basic_url'] ,
 	);
 
 	$link_rows = $this->get_link_headline( $link_param );
@@ -499,28 +506,10 @@ function get_icon_list( $DIRNAME )
 //---------------------------------------------------------
 function get_map( $param )
 {
-	$rssc_dirname   = $param['dirname'] ;
-	$webmap_dirname = $param['webmap_dirname'] ;
-	$map_div_id     = $param['map_div_id'] ;
-	$map_func       = $param['map_func'] ;
-	$info_max       = $param['info_max'] ;
-	$info_width     = $param['info_width'] ;
-	$feeds          = $param['feeds'] ;
-
-	include_once XOOPS_ROOT_PATH.'/modules/'. $rssc_dirname  .'/class/rssc_map.php';
-	$map_class =& rssc_map::getInstance( $rssc_dirname );
-
-	$ret = $map_class->init( $webmap_dirname );
-	if ( !$ret ) {
-		return false ;
-	}
-
-	$map_class->set_map_div_id( $map_div_id ) ;
-	$map_class->set_map_func(   $map_func ) ;
-	$map_class->set_info_max(   $info_max ) ;
-	$map_class->set_info_width( $info_width ) ;
-
-	return $map_class->fetch_map( $feeds );
+	$dirname = $param['dirname'] ;
+	include_once XOOPS_ROOT_PATH.'/modules/'. $dirname  .'/class/rssc_block_map.php';
+	$map_class =& rssc_block_map::getSingleton( $dirname );
+	return $map_class->build_map_block( $param );
 }
 
 //---------------------------------------------------------
@@ -535,6 +524,7 @@ function fetch_tpl_feed_list( $param )
 	$show_site   = isset($param['show_site'])   ? (bool)$param['show_site']  : false;
 	$mode_date   = isset($param['mode_date'])   ? intval($param['mode_date'])   : 0;
 	$num_content = isset($param['num_content']) ? intval($param['num_content']) : 0;
+	$conf_url    = isset($param['conf_url'])    ? intval($param['conf_url'])    : 0;
 
 	$show_li     = !$show_icon;
 	$template    = XOOPS_ROOT_PATH .'/modules/'. $dirname  .'/templates/parts/rssc_block_feed_list.html' ;
@@ -553,7 +543,8 @@ function fetch_tpl_feed_list( $param )
 	$tpl->assign('show_middle', $show_middle );
 	$tpl->assign('show_long',   $show_long );
 	$tpl->assign('num_content', $num_content );
-	$tpl->assign('max_width',  $this->_MAX_WIDTH );
+	$tpl->assign('max_width',   $this->_MAX_WIDTH );
+	$tpl->assign('conf_url',    $conf_url );
 
 	foreach ($feeds as $feed) {
 		$tpl->append('feeds', $feed);

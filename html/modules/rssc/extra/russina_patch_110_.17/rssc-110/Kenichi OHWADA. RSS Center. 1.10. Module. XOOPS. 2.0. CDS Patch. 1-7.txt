@@ -1,0 +1,52 @@
+CDS Patch. RSS Center. 1.02. 1
+	Корректировка, добавление. Переменные шаблона и языка
+	.\modules\rssc\templates\blocks\rssc_block_map.html
+	.\modules\rssc\templates\rssc_headline.html
+	.\modules\rssc\templates\rssc_index.html
+	.\modules\rssc\templates\rssc_single_feed.html
+	.\modules\rssc\templates\rssc_single_link.html
+	.\modules\rssc\templates\rssc_map.html
+	.\modules\rssc\templates\parts\rssc_block_feed_list.html
+	.\modules\rssc\templates\parts\rssc_feed_list.html
+	.\modules\rssc\single_link_utf8.php
+	.\modules\rssc\class\rssc_block.php
+
+CDS Patch. RSS Center. 1.02. 2
+	Корректировка. Работа кода с переменными текущей схемы
+	.\modules\rssc\single_link_utf8.php
+
+CDS Patch. RSS Center. 1.02. 3
+	Корректировка, добавление. Использование шаблонов директорий parts и xml в директории текущего шаблона
+	.\modules\rssc\admin\parse_rss.php
+	.\modules\rssc\class\rssc_block.php
+	.\modules\rssc\class\rssc_build_rssc.php
+	.\modules\rssc\class\rssc_icon.php
+	.\modules\rssc\class\rssc_install.php
+	.\modules\rssc\class\rssc_view_param.php
+
+CDS Patch. RSS Center. 1.02. 4
+	Корректировка. Удадение не нужного пункта иконок ссылок
+	.\modules\rssc\class\rssc_block.php
+
+CDS Patch. RSS Center. 1.02. 5
+	Исправление. Тип поля конфигурации 'Имя директории webmap'
+	.\modules\rssc\class\rssc_config_define.php
+
+CDS Patch. RSS Center. 1.02. 6
+	Добавление. Переменная шаблона - число записей в базе данных - $lang_total_count
+	Добавление. Переменная шаблона - число найденых записей - $rssc_found_count
+	.\modules\rssc\index.php
+	.\modules\rssc\single_link.php
+	.\modules\rssc\headline.php
+
+CDS Patch. RSS Center. 1.02. 7
+	Добавление. Блок. Блог RSSC. Переменная шаблона. ID ссылки для отображения блога - $block.lid
+	.\modules\rssc\class\rssc_block.php
+
+Установка:
+Новая уствновка:
+1. Заменить оригинальные файлы файлами из архива
+2. Установить модуль
+Установка на существующий:
+1. Заменить оригинальные файлы файлами из архива
+2. Обновить модуль

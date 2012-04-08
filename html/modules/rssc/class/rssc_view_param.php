@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_view_param.php,v 1.1 2011/12/29 14:37:15 ohwada Exp $
+// $Id: rssc_view_param.php,v 1.2 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// conf_url
 
 // 2009-02-20 K.OHWADA
 // gicon_id 
@@ -348,6 +351,7 @@ function &get_tpl_common_param()
 		'module_name'           => $this->get_module_name('s'),
 		'is_module_admin'       => $this->_system->is_module_admin(),
 		'xoops_module_header'   => $this->_get_module_header(),
+		'conf_url'              => $this->_conf['basic_url'] ,
 	);
 	return $arr;
 }

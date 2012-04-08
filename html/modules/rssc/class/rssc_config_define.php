@@ -1,5 +1,9 @@
 <?php
-// $Id: rssc_config_define.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: rssc_config_define.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// basic_url
+// BUG: 142 wrong catid
 
 // 2012-03-01 K.OHWADA
 // webmap_latitude
@@ -153,6 +157,18 @@ function &get_define()
 	$config[7]['formtype']  = 'yesno';
 	$config[7]['valuetype'] = 'int';
 	$config[7]['default']   = 1;
+
+	$config[8]['name']       = 'basic_url';
+	$config[8]['catid']      = 1;
+	$config[8]['title']       = '_AM_RSSC_CONF_URL';
+//	$config[8]['description'] = '_AM_RSSC_CONF_URL_DESC';
+	$config[8]['formtype']  = 'radio_select';
+	$config[8]['valuetype'] = 'int';
+	$config[8]['default']   = 0;
+	$config[8]['options']   = array(
+		_AM_RSSC_CONF_URL_0 => 0,
+		_AM_RSSC_CONF_URL_1 => 1,
+		);
 
 //---------------------------------------------------------
 // main search
@@ -591,7 +607,10 @@ function &get_define()
 	$config[86]['default']   = 0;
 
 	$config[142]['name']      = 'block_headline_mode_date';
-	$config[142]['catid']     = 1;
+
+// BUG: 142 wrong catid
+	$config[142]['catid']     = 0;
+
 	$config[142]['title']       = '_AM_RSSC_CONF_SHOW_MODE_DATE';
 //	$config[142]['description'] = '_AM_RSSC_CONF_SHOW_MODE_DATE_DSC';
 	$config[142]['formtype']  = 'radio_select';

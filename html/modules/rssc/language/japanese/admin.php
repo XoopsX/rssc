@@ -1,5 +1,5 @@
 <?php
-// $Id: admin.php,v 1.3 2012/03/18 08:27:06 ohwada Exp $
+// $Id: admin.php,v 1.4 2012/04/08 23:42:20 ohwada Exp $
 
 // 2008-01-20 K.OHWADA
 // post_plugin in link table
@@ -467,6 +467,12 @@ define('_AM_RSSC_CONF_WEBMAP_ADDRESS_DESC', '緯度・経度の場所を示すメモ');
 define('_AM_RSSC_CONF_WEBMAP_LATITUDE',  '緯度');
 define('_AM_RSSC_CONF_WEBMAP_LONGITUDE', '経度');
 define('_AM_RSSC_CONF_WEBMAP_ZOOM',      'ズーム');
+
+// === 2012-04-02 ===
+define('_AM_RSSC_CONF_URL', 'URLの選択');
+define('_AM_RSSC_CONF_URL_DESC', 'タイトルのハイパーリンク');
+define('_AM_RSSC_CONF_URL_0', '元のサイトのURL');
+define('_AM_RSSC_CONF_URL_1', 'RSSCのsinglefeed');
 
 }
 // --- define language begin ---

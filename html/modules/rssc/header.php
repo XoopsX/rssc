@@ -1,5 +1,8 @@
 <?php
-// $Id: header.php,v 1.1 2011/12/29 14:37:03 ohwada Exp $
+// $Id: header.php,v 1.2 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// rssc_map.php
 
 // 2009-02-20 K.OHWADA
 // blocks.php
@@ -82,6 +85,8 @@ $happy_linux_time =& happy_linux_time::getInstance( true );
 //---------------------------------------------------------
 include_once RSSC_ROOT_PATH.'/api/view.php';
 include_once RSSC_ROOT_PATH.'/class/rssc_icon.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_block_map.php';
+include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 //---------------------------------------------------------
 // happy_linux

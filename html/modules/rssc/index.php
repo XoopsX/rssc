@@ -1,5 +1,8 @@
 <?php
-// $Id: index.php,v 1.2 2012/03/17 13:31:45 ohwada Exp $
+// $Id: index.php,v 1.3 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// remove rssc_map.php
 
 // 2012-03-01 K.OHWADA
 // rssc_map::getInstance( RSSC_DIRNAME )
@@ -47,7 +50,6 @@ include 'header.php';
 
 include_once RSSC_ROOT_PATH.'/class/rssc_search_handler.php';
 include_once RSSC_ROOT_PATH.'/class/rssc_icon.php';
-include_once RSSC_ROOT_PATH.'/class/rssc_map.php';
 
 $search_handler =& rssc_get_handler( 'search',       RSSC_DIRNAME );
 $conf_handler   =& rssc_get_handler( 'config_basic', RSSC_DIRNAME );
@@ -113,7 +115,7 @@ $show_title_map = false;
 $feed_list = null;
 $icon_list = null;
 
-$ret = $map_class->init( $webmap_dirname );
+$ret = $map_class->init_map( $webmap_dirname );
 if ( $ret ) {
 	$show_title_map = true ;
 }

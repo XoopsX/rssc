@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_build_rssc.php,v 1.1 2011/12/29 14:37:14 ohwada Exp $
+// $Id: rssc_build_rssc.php,v 1.2 2012/04/08 23:42:20 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// conf['basic_url']
 
 // 2009-02-20 K.OHWADA
 // geo_lat
@@ -39,6 +42,7 @@ class rssc_build_rssc extends happy_linux_build_rss
 	var $_search_handler;
 
 	var $_CACHE_ID_QUERY = 'query';
+	var $_URL_SINGLE_FEED = '';
 
 //---------------------------------------------------------
 // constructor
@@ -60,6 +64,9 @@ function rssc_build_rssc( $dirname )
 	$this->set_rdf_template(  $DIR_XML.'/rssc_build_rdf.html' );
 	$this->set_rss_template(  $DIR_XML.'/rssc_build_rss.html' );
 	$this->set_atom_template( $DIR_XML.'/rssc_build_atom.html' );
+
+	$this->_URL_SINGLE_FEED = XOOPS_URL.'/modules/'.$dirname.'/single_feed.php?fid=';
+
 }
 
 function &getInstance( $dirname )
@@ -110,6 +117,8 @@ function _init()
 {
 	$this->_config_handler =& rssc_get_handler( 'config_basic', $this->_DIRNAME );
 	$this->_search_handler =& rssc_get_handler( 'search',       $this->_DIRNAME );
+
+	$this->_conf =& $this->_config_handler->get_conf();
 }
 
 function _get_query()
@@ -119,13 +128,12 @@ function _get_query()
 
 function &_get_feeds()
 {
-	$conf =& $this->_config_handler->get_conf();
-	$max_limit = $conf['main_search_perpage'];
+	$max_limit = $this->_conf['main_search_perpage'];
 
 	$this->_search_handler->setFeedLimit(  $max_limit );
-	$this->_search_handler->setMinKeyword( $conf['main_search_min'] );
-	$this->_search_handler->setFeedOrder(  $conf['main_search_order'] );
-	$this->_search_handler->setFutureDays( $conf['basic_future_days'] );
+	$this->_search_handler->setMinKeyword( $this->_conf['main_search_min'] );
+	$this->_search_handler->setFeedOrder(  $this->_conf['main_search_order'] );
+	$this->_search_handler->setFutureDays( $this->_conf['basic_future_days'] );
 	$this->_search_handler->setFlagSanitize(0);	// not sanitize
 
 	$limit = $this->_search_handler->get_get_limit();
@@ -271,8 +279,14 @@ function _build_common_item( $item )
 		$georss_point = $geo_lat.' '.$geo_long;
 	}
 
+	if ( $this->_conf['basic_url'] ) {
+		$link = $this->_URL_SINGLE_FEED.$item['fid'];
+	} else {
+		$link = $item['link'];
+	}
+
 	$ret = array(
-		'link'         => $this->_xml_url( $item['link'] ),
+		'link'         => $this->_xml_url( $link ),
 		'guid'         => $this->_xml_url( $item['guid'] ),
 		'entry_id'     => $this->_xml_url( $item['entry_id'] ),
 		'author_uri'   => $this->_xml_url( $item['author_uri'] ),
