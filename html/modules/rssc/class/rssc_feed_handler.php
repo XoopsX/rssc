@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_feed_handler.php,v 1.2 2011/12/29 18:47:54 ohwada Exp $
+// $Id: rssc_feed_handler.php,v 1.3 2012/04/10 03:06:50 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// site_link XOBJ_DTYPE_URL -> XOBJ_DTYPE_URL_AREA
 
 // 2011-12-29 K.OHWADA
 // PHP 5.3 : Assigning the return value of new by reference is now deprecated.
@@ -73,16 +76,16 @@ function rssc_feed()
 	$this->initVar('p2',  XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('p3',  XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('site_title', XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('site_link',  XOBJ_DTYPE_URL,    null, false, 255);
+	$this->initVar('site_link',  XOBJ_DTYPE_URL_AREA );
 	$this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('link',  XOBJ_DTYPE_URL_AREA );
-	$this->initVar('entry_id', XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('guid',     XOBJ_DTYPE_TXTBOX, null, false, 255);
+	$this->initVar('entry_id', XOBJ_DTYPE_URL_AREA );
+	$this->initVar('guid',     XOBJ_DTYPE_URL_AREA );
 	$this->initVar('updated_unix',   XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('published_unix', XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('category',     XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('author_name',  XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('author_uri',   XOBJ_DTYPE_TXTBOX, null, false, 255);
+	$this->initVar('author_uri',   XOBJ_DTYPE_URL_AREA );
 	$this->initVar('author_email', XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('type_cont',    XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('raws',    XOBJ_DTYPE_TXTAREA);
@@ -94,7 +97,7 @@ function rssc_feed()
 	$this->initVar('aux_text_2', XOBJ_DTYPE_TXTBOX, null, false, 255);
 
 // enclosure
-	$this->initVar('enclosure_url',    XOBJ_DTYPE_URL,    null, false, 255);
+	$this->initVar('enclosure_url',    XOBJ_DTYPE_URL_AREA );
 	$this->initVar('enclosure_type',   XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('enclosure_length', XOBJ_DTYPE_INT, 0);
 
@@ -105,13 +108,13 @@ function rssc_feed()
 	$this->initVar('geo_long', XOBJ_DTYPE_FLOAT, 0);
 
 // media
-	$this->initVar('media_content_url',      XOBJ_DTYPE_URL,    null, false, 255);
+	$this->initVar('media_content_url',      XOBJ_DTYPE_URL_AREA );
 	$this->initVar('media_content_type',     XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('media_content_medium',   XOBJ_DTYPE_TXTBOX, null, false, 255);
 	$this->initVar('media_content_filesize', XOBJ_DTYPE_INT, 0);
 	$this->initVar('media_content_width',    XOBJ_DTYPE_INT, 0);
 	$this->initVar('media_content_height',   XOBJ_DTYPE_INT, 0);
-	$this->initVar('media_thumbnail_url',    XOBJ_DTYPE_URL,    null, false, 255);
+	$this->initVar('media_thumbnail_url',    XOBJ_DTYPE_URL_AREA );
 	$this->initVar('media_thumbnail_width',  XOBJ_DTYPE_INT, 0);
 	$this->initVar('media_thumbnail_height', XOBJ_DTYPE_INT, 0);
 	

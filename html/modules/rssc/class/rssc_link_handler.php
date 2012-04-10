@@ -1,5 +1,8 @@
 <?php
-// $Id: rssc_link_handler.php,v 1.1 2011/12/29 14:37:14 ohwada Exp $
+// $Id: rssc_link_handler.php,v 1.2 2012/04/10 03:06:50 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// url XOBJ_DTYPE_URL -> XOBJ_DTYPE_URL_AREA
 
 // 2009-02-20 K.OHWADA
 // gicon_id
@@ -73,14 +76,14 @@ function rssc_link()
 	$this->initVar('p2',  XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('p3',  XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('title',  XOBJ_DTYPE_TXTBOX, null, true, 255);
-	$this->initVar('url',    XOBJ_DTYPE_URL,    null, true, 255);
+	$this->initVar('url',    XOBJ_DTYPE_URL_AREA );
 	$this->initVar('ltype',     XOBJ_DTYPE_INT, RSSC_C_LINK_LTYPE_NORMAL, false);
 	$this->initVar('refresh',   XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('headline',  XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('mode',      XOBJ_DTYPE_INT, 0, false);
-	$this->initVar('rdf_url',   XOBJ_DTYPE_URL, null, false, 255);
-	$this->initVar('rss_url',   XOBJ_DTYPE_URL, null, false, 255);
-	$this->initVar('atom_url',  XOBJ_DTYPE_URL, null, false, 255);
+	$this->initVar('rdf_url',   XOBJ_DTYPE_URL_AREA );
+	$this->initVar('rss_url',   XOBJ_DTYPE_URL_AREA );
+	$this->initVar('atom_url',  XOBJ_DTYPE_URL_AREA );
 	$this->initVar('encoding',  XOBJ_DTYPE_TXTBOX, null, false);
 	$this->initVar('updated_unix',   XOBJ_DTYPE_INT, 0, false);
 	$this->initVar('channel',     XOBJ_DTYPE_TXTAREA);
