@@ -45,7 +45,7 @@ function rssc_map( $dirname )
 	$this->_URL_IFRAME = XOOPS_URL.'/modules/'.$dirname.'/get_location.php';
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

@@ -44,7 +44,7 @@ function rssc_link_basic()
 	$this->happy_linux_basic();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

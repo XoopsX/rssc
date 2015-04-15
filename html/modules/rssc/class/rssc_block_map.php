@@ -25,7 +25,7 @@ function rssc_block_map( $dirname )
 	// dummy
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

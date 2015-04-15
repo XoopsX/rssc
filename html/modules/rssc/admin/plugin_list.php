@@ -30,7 +30,7 @@ function admin_plugin_list()
 	$this->_form  =& admin_form_plugin_test::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -109,7 +109,7 @@ function admin_plugin_test()
 	$this->_form   =& admin_form_plugin_test::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -223,7 +223,7 @@ function admin_form_plugin_test()
 	$this->_post =& happy_linux_post::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

@@ -62,7 +62,7 @@ function admin_manage_feed()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -207,7 +207,7 @@ function admin_form_feed()
 	$this->happy_linux_form();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

@@ -76,7 +76,7 @@ function admin_manage_archive()
 	$this->_conf_word_limit =  $conf_data['word_limit'];
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -315,7 +315,7 @@ function admin_form_archive()
 	$this->happy_linux_form_lib();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

@@ -47,7 +47,7 @@ function admin_list_white()
 	$this->_TITLE_ID_BW = _RSSC_WHITE_ID;
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

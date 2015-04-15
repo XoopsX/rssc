@@ -110,7 +110,7 @@ function admin_manage_link()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -607,7 +607,7 @@ function admin_form_link()
 	$this->_URL_ICON_WHITE_DOT = RSSC_URL . '/images/white_dot.png';
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

@@ -36,7 +36,7 @@ function rssc_weblinks_handler( $dirname )
 	$this->_strings =& happy_linux_strings::getInstance();
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 

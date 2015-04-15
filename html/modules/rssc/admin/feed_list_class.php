@@ -58,7 +58,7 @@ function admin_feed_list()
 	$this->_url_feed_column_manage = RSSC_URL.'/admin/feed_column_manage.php';
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

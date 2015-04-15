@@ -59,7 +59,7 @@ function admin_manage_black()
 	$this->_parser =& happy_linux_rss_parser::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -241,7 +241,7 @@ function admin_form_black()
 	$this->admin_form_black_white();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

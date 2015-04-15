@@ -38,7 +38,7 @@ function admin_manage_word()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -203,7 +203,7 @@ function admin_form_word()
 	$this->happy_linux_form();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

@@ -49,7 +49,7 @@ function admin_manage_white()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -137,7 +137,7 @@ function admin_form_white()
 	$this->admin_form_black_white();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

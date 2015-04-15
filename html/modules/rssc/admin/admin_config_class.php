@@ -77,7 +77,7 @@ function admin_config_form()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -243,7 +243,7 @@ function admin_config_store()
 	$this->_install =& rssc_install::getInstance( RSSC_DIRNAME );
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

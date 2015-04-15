@@ -161,7 +161,7 @@ function rssc_single_link_utf8()
 	$this->_strings =& happy_linux_strings::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

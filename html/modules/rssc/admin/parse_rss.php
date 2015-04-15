@@ -85,7 +85,7 @@ function admin_parse_rss()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -444,7 +444,7 @@ function admin_form_rss()
 	$this->_link_handler =& rssc_get_handler('link', RSSC_DIRNAME);
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

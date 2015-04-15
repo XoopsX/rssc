@@ -61,7 +61,7 @@ function admin_import_weblinks()
 	$this->get_mid();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

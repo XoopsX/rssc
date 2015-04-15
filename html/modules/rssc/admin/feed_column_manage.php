@@ -58,7 +58,7 @@ function admin_feed_column_manage()
 	$this->_THIS_URL = RSSC_URL.'/admin/feed_column_manage.php';
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {
@@ -177,7 +177,7 @@ function admin_form_feed_column()
 	$this->happy_linux_form();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

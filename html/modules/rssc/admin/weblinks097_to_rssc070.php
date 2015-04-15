@@ -49,7 +49,7 @@ function admin_import_weblinks()
 	$this->_weblinks_handler->load_config();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

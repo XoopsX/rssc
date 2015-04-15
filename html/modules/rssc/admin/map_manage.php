@@ -38,7 +38,7 @@ function admin_map_manage( $dirname )
 	$this->_conf =& $this->_conf_handler->get_conf();
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

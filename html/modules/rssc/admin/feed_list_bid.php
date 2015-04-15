@@ -34,7 +34,7 @@ function admin_feed_list_bid()
 	$this->_black_handler =& rssc_get_handler('black', RSSC_DIRNAME);
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

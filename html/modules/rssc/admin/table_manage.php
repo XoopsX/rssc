@@ -47,7 +47,7 @@ function admin_table_manage()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

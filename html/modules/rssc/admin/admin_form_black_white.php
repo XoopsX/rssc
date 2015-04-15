@@ -46,7 +46,7 @@ function admin_form_black_white()
 	$this->_feed_handler =& rssc_get_handler('feed', RSSC_DIRNAME);
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

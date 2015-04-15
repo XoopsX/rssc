@@ -33,7 +33,7 @@ function admin_feed_list_lid()
 	$this->_link_handler =& rssc_get_handler('link', RSSC_DIRNAME);
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

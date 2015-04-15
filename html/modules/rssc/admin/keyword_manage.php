@@ -66,7 +66,7 @@ function admin_manage_keyword()
 
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -201,7 +201,7 @@ function admin_form_keyword()
 	$this->happy_linux_form();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

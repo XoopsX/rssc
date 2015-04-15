@@ -29,7 +29,7 @@ function rssc_plugin_list( $dirname )
 	$this->_plugin =& rssc_plugin::getInstance( $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 

@@ -31,7 +31,7 @@ function rssc_log_file( $dirname )
 }
 
 // PHP5.2: Declaration of rssc_log_file::getInstance() should be compatible with that of happy_linux_file::getInstance() 
-//function &getInstance( $dirname )
+//public static function &getInstance( $dirname )
 
 //---------------------------------------------------------
 // log

@@ -48,7 +48,7 @@ function admin_list_black()
 	$this->_TITLE_ID_BW = _RSSC_BLACK_ID;
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

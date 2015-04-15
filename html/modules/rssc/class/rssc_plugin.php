@@ -56,7 +56,7 @@ function rssc_plugin( $dirname )
 	$this->_DIR_PLUGINS_LANG = $this->_DIR_PLUGINS.'/language/'.$this->_system->get_language();
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 

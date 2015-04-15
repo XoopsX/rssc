@@ -62,7 +62,7 @@ function rssc_build_rssc( $dirname )
 	$this->set_atom_template( $DIR_XML.'/rssc_build_atom.html' );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 

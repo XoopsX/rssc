@@ -28,7 +28,7 @@ function rssc_icon()
 	$this->_db =& Database::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

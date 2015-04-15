@@ -34,7 +34,7 @@ function admin_feed_list_wid()
 	$this->_white_handler =& rssc_get_handler('white', RSSC_DIRNAME);
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

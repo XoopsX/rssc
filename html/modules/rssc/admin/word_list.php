@@ -59,7 +59,7 @@ function admin_list_word()
 	$this->_post =& happy_linux_post::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 
@@ -291,7 +291,7 @@ function admin_word_search_form()
 	$this->_post =& happy_linux_post::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

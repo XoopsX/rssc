@@ -44,7 +44,7 @@ function rssc_block()
 	$this->_is_japanese = happy_linux_is_japanese() ;
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

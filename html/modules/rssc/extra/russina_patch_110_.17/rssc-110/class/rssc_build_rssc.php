@@ -86,7 +86,7 @@ function rssc_build_rssc( $dirname )
 /* CDS Patch. RSS Center. 1.02. 3. EOF */
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 

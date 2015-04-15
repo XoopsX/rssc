@@ -60,7 +60,7 @@ function rssc_config_define()
 	$this->happy_linux_config_define_base();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

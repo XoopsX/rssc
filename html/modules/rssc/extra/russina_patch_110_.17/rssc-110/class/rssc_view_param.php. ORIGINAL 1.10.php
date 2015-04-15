@@ -97,7 +97,7 @@ function rssc_view_param( $dirname )
 
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 

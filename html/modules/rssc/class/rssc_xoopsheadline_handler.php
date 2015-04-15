@@ -34,7 +34,7 @@ function rssc_xoopsheadline_handler()
 	$this->_mid_orig  = $system->get_mid_by_dirname( $this->_DIRNAME_XOOPSHEADLINE );
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

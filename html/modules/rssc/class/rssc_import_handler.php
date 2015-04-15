@@ -74,7 +74,7 @@ function rssc_import_handler( $dirname )
 	$this->_feed_basic_handler =& rssc_get_handler( 'feed_basic', $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) 
