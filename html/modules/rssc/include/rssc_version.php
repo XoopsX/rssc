@@ -15,9 +15,9 @@
 // --- define version begin ---
 if( !defined('RSSC_VERSION') ) 
 {
-	define('RSSC_VERSION',             '1.30');
-	define('RSSC_HAPPY_LINUX_VERSION', '1.80');
-	define('RSSC_WEBMAP3_VERSION',     '1.10');
+	define('RSSC_VERSION',             '1.31');
+	define('RSSC_HAPPY_LINUX_VERSION', '1.82');
+	define('RSSC_WEBMAP3_VERSION',     '1.12');
 }
 
 // --- define version end ---
